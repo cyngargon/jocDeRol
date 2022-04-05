@@ -47,6 +47,7 @@ public abstract class Personatge extends Tabler{
         public abstract void batalla();
         
 	public void mostrarMenu() {
+        // mi comentario 
             int [] posicio = super.getPosicioPersonatge();
             int [][] tauler = super.getTauler();
             int numero = tauler[posicio[0]][posicio[1]];
