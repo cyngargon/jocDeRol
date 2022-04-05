@@ -36,7 +36,7 @@ public class Teclat
 	{
 		// Inicialitzem el car�cter a car�cter buit. Si es produeix algun error,
 		// es retornar� aquest valor
-		char c = 0;
+		char c = 7;
 
 		// Si no es produeix cap error, es retornar� el car�cter llegit
 		String s = llegirString();
