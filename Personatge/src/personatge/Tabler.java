@@ -40,6 +40,7 @@ public class Tabler {
 		int [] dimensions = new int [2];
 		boolean checkDimension;
 		//Condicional 5 al 20
+		int ok = 10;
 		do{
 			System.out.print("Introduce las columnas del mapa: ");
 			dimensions[0] = Teclat.llegirInt();
