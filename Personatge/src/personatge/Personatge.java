@@ -80,6 +80,16 @@ public abstract class Personatge extends Tabler{
                     break;
                 default:
                     System.out.println("ERROR!");
+                    
+                    /*
+                    h
+                    h
+                    h
+                    h
+                    h
+                    h
+                    h
+                    */
             }
 	}
 	public String mostrarPosicio() {
