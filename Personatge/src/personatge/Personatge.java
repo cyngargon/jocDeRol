@@ -43,74 +43,127 @@ public abstract class Personatge extends Tabler{
         
     //Methods
 	public abstract String missatgePosicio();
-        public abstract void moure();
+        public abstract void moure(char [] direccio);
         public abstract void batalla();
+        public void mostrarDireccio(){
+        System.out.println(missatgePosicio());
+        System.out.println("W -> Arriba"
+              + "\nS -> Abajo"
+              + "\nD -> Derecha"
+              + "\nA -> Izquierda");
+    }
+        public abstract boolean checkDireccio(char [] direccio);
+        public void cambiarPersonatge(){
+            
+        }
+        public void sortir(){
+            
+        }
+        public void recollir(){
+            
+        }
         
+        
+        /**
+         * Mostra el menú depenent de la casella en la que es trovi el personatge
+         */
 	public void mostrarMenu() {
-        // mi comentario 
             int [] posicio = super.getPosicioPersonatge();
             int [][] tauler = super.getTauler();
             int numero = tauler[posicio[0]][posicio[1]];
             char respuesta;
+            
             switch (numero){
-                case 0:
+                case 0: //Res
                     System.out.println("M: Moverse" + 
                                         "\nC: Cambiar personaje" +
                                         "\nS: Salir del juego");
                     respuesta = Teclat.llegirChar();
                     Character.toUpperCase(respuesta);
-                    //Cridar funció
+                    //Comprovem que la resposta sigui valida
+                    checkOpcionesMenu(numero, respuesta);
                     break;
-                case 1:
+                case 1: //Enemic
                     System.out.println("B: Batalla" +
                                         "\nM: Moverse" +
                                         "\nC: Cambiar personaje" +
                                         "\nS: Salir del juego");
                     respuesta = Teclat.llegirChar();
                     Character.toUpperCase(respuesta);
-                    //Cridar funcio
+                    //Comprovem que la resposta sigui valida
+                    checkOpcionesMenu(numero, respuesta);
                     break;
-                case 3: case 2:
+                case 3: case 2: //Moneda i clau
                     System.out.println("M: Moverse" + 
                                         "\nR: Recoger" +
                                         "\nC: Cambiar personaje" +
                                         "\nS: Salir del juego");
                     respuesta = Teclat.llegirChar();
                     Character.toUpperCase(respuesta);
-                    //Cridar funcio
+                    //Comprovem que la resposta sigui valida
+                    checkOpcionesMenu(numero, respuesta);
                     break;
                 default:
                     System.out.println("ERROR!");
-                    
-                    /*
-                    h
-                    h
-                    h
-                    h
-                    h
-                    h
-                    h
-                    */
             }
 	}
-	public String mostrarPosicio() {
-		return	"W -> Arriba"
-				+ "S -> Abajo"
-				+ "D -> Derecha"
-				+ "A -> Izquierda";
-	}
-	public void checkCasilla() {
-		
-	}
-	public void checkPosicio() {
-		
-	}
-	public void chackOpcionesMenu(int casella, char respuesta) {
+        /**
+         * Comprovar que les respostes siguin valides
+         * @param casella
+         * @param respuesta 
+         */
+	public void checkOpcionesMenu(int casella, char respuesta) {
             switch (respuesta){
                 case 'B':
                     if(casella == 2||casella == 3||casella == 0){
-                        
+                        System.out.println("No hay ningun enemigo.");
+                    }else{
+                        batalla();
                     }
+                case 'R':
+                    if(casella == 0 || casella == 1){
+                        System.out.println("No hay nada que recoger");
+                    }else{
+                        recollir();
+                    }
+                    break;
+                case 'M':
+                    mostrarDireccio();
+                    break;
+                case 'C':   
+                    cambiarPersonatge();
+                    break;
+                case 'S':
+                    sortir();
+                    break;
+                default:
+                    System.out.println("Opción incorrecta.");
             }
 	}
+        /**
+         * Comprovar que es pot moure cap a aquella direccio
+         */
+        public void checkMoviment(){
+            
+        }
+        
+        /**
+     * Mostra el missatge de la posicio i chequeja de que ho hagi introduit bé
+     * @param direccio 
+     */
+    public void missatgeMoure(char [] direccio) {
+        boolean errorDireccio;
+        
+        for (int i = 0; i < direccio.length; i++) {
+            do{
+                missatgePosicio();
+                mostrarDireccio();
+                direccio[i] = Teclat.llegirChar();
+                Character.toUpperCase(direccio[i]);
+                errorDireccio = checkDireccio(direccio);
+            }while(errorDireccio==true);
+        }
+        moure(direccio);
+    }
+        
 }

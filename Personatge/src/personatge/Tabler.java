@@ -36,27 +36,42 @@ public class Tabler {
 	}
 	
     //Methods
+        /**
+         * Pregunta files i columnes del mapa
+         */
 	public void iniciPrograma() {
 		int [] dimensions = new int [2];
 		boolean checkDimension;
 		//Condicional 5 al 20
-		int ok = 5;
 		do{
 			System.out.print("Introduce las columnas del mapa: ");
 			dimensions[0] = Teclat.llegirInt();
 			System.out.print("Introduce las filas del mapa: ");
 			dimensions[1] = Teclat.llegirInt();
-			if (dimensions[0] < 5 || dimensions[0] > 20 || dimensions[1] < 5 || dimensions[1] > 20) {
+                        checkDimension = checkDimensions(dimensions);
+		}while(checkDimension == false);
+		tauler = new int[dimensions[0]][dimensions[1]];
+	}
+        /**
+         * Comprova que les dimensions del tauler siguin correctes
+         * @param dimensions
+         * @return 
+         */
+        public boolean checkDimensions(int[] dimensions){
+            boolean checkDimension;
+            if (dimensions[0] < 5 || dimensions[0] > 20 || dimensions[1] < 5 || dimensions[1] > 20) {
 				System.out.println("No se pueden crear este número de filas i columnas. Intentalo de nuevo...");
 				checkDimension = false;
 			} else {
 				System.out.println("Creando mapa...");
 				checkDimension = true;
 			}
-		}while(checkDimension == false);
-		tauler = new int[dimensions[0]][dimensions[1]];
-	}
-	
+            return checkDimension;
+        }
+        
+	/**
+         * Genera el tauler
+         */
 	public void generarTauler() {		
 		int filaClau, columnaClau;
 		iniciPrograma();
@@ -69,7 +84,10 @@ public class Tabler {
 		columnaClau = (int) (Math.random()*tauler[0].length);
 		tauler [filaClau][columnaClau] = CLAU;
 	}
-	
+        
+	/**
+         * Mostra el tauler
+         */
 	public void mostrarTauler(){
             for (int i = 0; i < tauler.length; i++) {
                     for (int j = 0; j < tauler[0].length; j++) {
@@ -85,5 +103,13 @@ public class Tabler {
                     System.out.println();
 		}
 	}
+        
+        /**
+         * Mostra la posició en la que es trova el jugador
+         */
+        public void mostrarPosicio(){
+            final int ZERO = 0, U = 1;
+            System.out.println("Estas en la posició" + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
+        }
 	
 }

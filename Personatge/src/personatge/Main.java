@@ -4,8 +4,8 @@ public class Main {
         
 	public static void main(String[] args) {
             
-		Tabler t1 = new Tabler();
-		t1.generarTauler();
-		t1.mostrarTauler();
+		Personatge p1 = new Guerrer();
+		
+                p1.mostrarDireccio();
 	}
 }
