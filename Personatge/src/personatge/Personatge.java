@@ -57,6 +57,7 @@ public abstract class Personatge extends Tabler{
                                         "\nC: Cambiar personaje" +
                                         "\nS: Salir del juego");
                     respuesta = Teclat.llegirChar();
+                    Character.toUpperCase(respuesta);
                     //Cridar funció
                     break;
                 case 1:
@@ -65,6 +66,7 @@ public abstract class Personatge extends Tabler{
                                         "\nC: Cambiar personaje" +
                                         "\nS: Salir del juego");
                     respuesta = Teclat.llegirChar();
+                    Character.toUpperCase(respuesta);
                     //Cridar funcio
                     break;
                 case 3: case 2:
@@ -73,6 +75,7 @@ public abstract class Personatge extends Tabler{
                                         "\nC: Cambiar personaje" +
                                         "\nS: Salir del juego");
                     respuesta = Teclat.llegirChar();
+                    Character.toUpperCase(respuesta);
                     //Cridar funcio
                     break;
                 default:
@@ -91,7 +94,12 @@ public abstract class Personatge extends Tabler{
 	public void checkPosicio() {
 		
 	}
-	public void opcionesMenu() {
-            
+	public void chackOpcionesMenu(int casella, char respuesta) {
+            switch (respuesta){
+                case 'B':
+                    if(casella == 2||casella == 3||casella == 0){
+                        
+                    }
+            }
 	}
 }
