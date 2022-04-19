@@ -153,17 +153,53 @@ public abstract class Personatge extends Tabler{
         /**
          * Comprovar que es pot moure cap a aquella direccio
          * @param direccio
+         * @return 
          */
-        public void checkMoviment(char direccio){
+        public boolean checkMoviment(char direccio){
             //si no es choca
             //total - posicion < al length de la direccio
             int [] posicio = super.getPosicioPersonatge();
             int [][] tauler = super.getTauler();
-            
+            //FILAS W y S
+            //COLUMNAS A y D
+            //tauler[0].length y posicio[0] --> filas 
+            //tauler.length y posicio [1] --> columnas
+            int maxLengthVertical = tauler[0].length - posicio[0];
+            int maxLengthHoritzontal = tauler.length - posicio[1];
+            boolean correcte = true;
             switch(direccio){
-                case 'W':
+                case 'S':
+                    if(maxLengthVertical>0){
+                        correcte=true;
+                    }else{
+                        correcte=false;
+                    }
                     break;
+                case 'W':
+                    if(posicio[0]>0){
+                        correcte=true;
+                    }else{
+                        correcte=false;
+                    }
+                    break;
+                case 'D':
+                    if(maxLengthHoritzontal>0){
+                        correcte=true;
+                    }else{
+                        correcte=false;
+                    }
+                    break;
+                case 'A':
+                    if(posicio[1]>0){
+                        correcte=true;
+                    }else{
+                        correcte=false;
+                    }
+                    break;
+                default:
+                    System.out.println("Error del programa.");
             }
+            return correcte;
         }
         
         /**
