@@ -52,7 +52,17 @@ public abstract class Personatge extends Tabler{
               + "\nD -> Derecha"
               + "\nA -> Izquierda");
     }
-        public abstract boolean checkDireccio(char [] direccio);
+        public boolean checkDireccio(char [] direccio){
+            boolean error;
+            switch (direccio[0]){
+                case 'W': case 'S': case 'D': case 'A':
+                    error = true;
+                    break;
+                default:
+                    error = false;
+            }
+            return error;
+        }
         public void cambiarPersonatge(){
             
         }
@@ -142,28 +152,37 @@ public abstract class Personatge extends Tabler{
 	}
         /**
          * Comprovar que es pot moure cap a aquella direccio
+         * @param direccio
          */
-        public void checkMoviment(){
+        public void checkMoviment(char direccio){
+            //si no es choca
+            //total - posicion < al length de la direccio
+            int [] posicio = super.getPosicioPersonatge();
+            int [][] tauler = super.getTauler();
             
+            switch(direccio){
+                case 'W':
+                    break;
+            }
         }
         
         /**
-     * Mostra el missatge de la posicio i chequeja de que ho hagi introduit bé
-     * @param direccio 
-     */
-    public void missatgeMoure(char [] direccio) {
-        boolean errorDireccio;
-        
-        for (int i = 0; i < direccio.length; i++) {
-            do{
-                missatgePosicio();
-                mostrarDireccio();
-                direccio[i] = Teclat.llegirChar();
-                Character.toUpperCase(direccio[i]);
-                errorDireccio = checkDireccio(direccio);
-            }while(errorDireccio==true);
-        }
-        moure(direccio);
-    }
+        * Mostra el missatge de la posicio i chequeja de que ho hagi introduit bé
+        * @param direccio 
+        */
+       public void missatgeMoure(char [] direccio) {
+           boolean errorDireccio;
+
+           for (int i = 0; i < direccio.length; i++) {
+               do{
+                   missatgePosicio();
+                   mostrarDireccio();
+                   direccio[i] = Teclat.llegirChar();
+                   Character.toUpperCase(direccio[i]);
+                   errorDireccio = checkDireccio(direccio);
+               }while(errorDireccio==true);
+           }
+           moure(direccio);
+       }
         
 }

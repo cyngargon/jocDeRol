@@ -9,27 +9,22 @@ public class Guerrer extends Personatge {
     
     @Override
     public void moure(char [] direccio) {
+        int [] posicio;
+        posicio = super.getPosicioPersonatge();
         
+        for (int i = 0; i < direccio.length; i++) {
+            switch (direccio[i]){
+                case 'W':
+                    super.checkMoviment(direccio[i]);
+                    posicio[0]++;
+            }
+        }
     }
     
 
     @Override
     public void batalla() {
         
-    }
-    
-
-    @Override
-    public boolean checkDireccio(char[] direccio) {
-        boolean error;
-        switch (direccio[0]){
-            case 'W': case 'S': case 'D': case 'A':
-                error = true;
-                break;
-            default:
-                error = false;
-        }
-        return error;
     }
     
     

@@ -16,15 +16,5 @@ public class Mag extends Personatge{
     public void batalla() {
         
     }
-
-    @Override
-    public void mostrarDireccio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean checkDireccio(char [] direccio) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 	
 }
