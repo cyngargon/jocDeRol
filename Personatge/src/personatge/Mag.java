@@ -25,7 +25,7 @@ public class Mag extends Personatge{
                     direccio[i] = Teclat.llegirChar();
                     direccio[i] = Character.toUpperCase(direccio[i]);
                     errorDireccio = checkDireccio(direccio[i]);
-                    error = checkUnicaDireccio();
+                    //error = checkUnicaDireccio();
                 }while(errorDireccio==true);
                 i++;
                 
@@ -37,7 +37,7 @@ public class Mag extends Personatge{
            moure(direccio);
     }
     
-    public void checkUnicaDireccio(){
+    /*public void checkUnicaDireccio(){
         do{
                     if(direccio[i]!=direccio[i-1]){
                         error=true;
@@ -46,6 +46,6 @@ public class Mag extends Personatge{
                         error=false;
                     }
                 }while(error==false&&a<direccio.length);
-    }
+    }*/
 	
 }
