@@ -26,7 +26,7 @@ public class Guerrer extends Personatge {
                 errorDireccio = checkDireccio(direccio[i]);
                 i++;
             }while(errorDireccio==true && i<direccio.length);
-           moure(direccio);
+           moure(direccio[i]);
     }
     
     
