@@ -39,19 +39,6 @@ public class Tabler {
         /**
          * Pregunta files i columnes del mapa
          */
-	public void iniciPrograma() {
-		int [] dimensions = new int [2];
-		boolean checkDimension;
-		//Condicional 5 al 20
-		do{
-			System.out.print("Introduce las columnas del mapa: ");
-			dimensions[0] = Teclat.llegirInt();
-			System.out.print("Introduce las filas del mapa: ");
-			dimensions[1] = Teclat.llegirInt();
-                        checkDimension = checkDimensions(dimensions);
-		}while(checkDimension == false);
-		tauler = new int[dimensions[0]][dimensions[1]];
-	}
         /**
          * Comprova que les dimensions del tauler siguin correctes
          * @param dimensions
@@ -74,7 +61,6 @@ public class Tabler {
          */
 	public void generarTauler() {		
 		int filaClau, columnaClau;
-		iniciPrograma();
 		for (int i = 0; i < tauler.length; i++) {
 			for (int j = 0; j < tauler[0].length; j++) {
 				tauler[i][j] = (int) (Math.random()*3);
