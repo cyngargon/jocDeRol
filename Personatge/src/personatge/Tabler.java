@@ -95,7 +95,7 @@ public class Tabler {
          */
         public void mostrarPosicio(){
             final int ZERO = 0, U = 1;
-            System.out.println("Estas en la posició" + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
+            System.out.println("Estas en la posición: " + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
         }
 	
 }

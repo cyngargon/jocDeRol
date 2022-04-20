@@ -14,38 +14,49 @@ public class Mag extends Personatge{
     
     @Override
     public void missatgeMoure() {
-        boolean errorDireccio, error;
+        boolean errorDireccio, errorMoviment;
+        
            char [] direccio = new char[3];
-           int i=0, exit, a=0;
+           int i=0, exit, a=0, error;
            char respuesta;
             do{
                 do{
-                    missatgePosicio();
-                    mostrarDireccio();
-                    direccio[i] = Teclat.llegirChar();
-                    direccio[i] = Character.toUpperCase(direccio[i]);
-                    errorDireccio = checkDireccio(direccio[i]);
-                    //error = checkUnicaDireccio();
-                }while(errorDireccio==true);
+                    do{
+                        super.mostrarTauler();
+                        super.mostrarPosicio();
+                        missatgePosicio();
+                        mostrarDireccio();
+                        direccio[i] = Teclat.llegirChar();
+                        direccio[i] = Character.toUpperCase(direccio[i]);
+                        errorDireccio = checkDireccio(direccio[i]);
+                        moure(direccio[i]);
+                    }while(errorDireccio==true);
+                    error = checkUnicaDireccio(direccio, a);
+                    a++;
+                }while(error==1);
                 i++;
                 
                 System.out.println("Quieres seguir moviendote? Responde con S/N");
                 respuesta = Teclat.llegirChar();
                 exit = super.confirmacion(respuesta);
 
-            }while(exit == 0);
-           moure(direccio);
+            }while(exit == 1 || exit == -1);
     }
     
-    /*public void checkUnicaDireccio(){
-        do{
-                    if(direccio[i]!=direccio[i-1]){
-                        error=true;
-                        System.out.println("ERROR! Solo te puedes mover para una direccion. ");
-                    }else{
-                        error=false;
-                    }
-                }while(error==false&&a<direccio.length);
-    }*/
+    public int checkUnicaDireccio(char [] direccio, int a){
+        int error;
+        if(a>0){
+            do{
+                if(direccio[a]!= direccio[a-1]){
+                    error=1;
+                    System.out.println("ERROR! Solo te puedes mover para una direccion. ");
+                }else{
+                    error=0;
+                }
+            }while(error==0 && a<direccio.length);
+        }
+        error=-1;
+        return error;
+    }
 	
 }

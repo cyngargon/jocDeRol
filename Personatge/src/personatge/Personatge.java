@@ -43,33 +43,29 @@ public abstract class Personatge extends Tabler{
         
     //Methods
 	public abstract String missatgePosicio();
-        public void moure(char [] direccio) {
+        public void moure(char direccio) {
             int [] posicio;
-            boolean correcte;
+            boolean correcte=true;
             posicio = super.getPosicioPersonatge();
-
-            for (int i = 0; i < direccio.length; i++) {
-                direccio[i] = Character.toUpperCase(direccio[i]);
-                switch (direccio[i]){
-                    case 'W': case 'S':
-                        correcte = checkMoviment(direccio[i]);
-                        if(correcte==true){
-                            posicio[0]++;
-                            super.setPosicioPersonatge(posicio);
-                        }else{
-                            System.out.println("Error. No te puedes mover");
-                        }
-                        break;
-                    case 'A': case 'D':
-                        correcte = checkMoviment(direccio[i]);
-                        if(correcte==true){
-                            posicio[1]++;
-                            super.setPosicioPersonatge(posicio);
-                        }else{
-                            System.out.println("Error. No te puedes mover");
-                        }
-                        break;
-                }
+            direccio = Character.toUpperCase(direccio);
+            switch (direccio){
+                case 'W': case 'S':
+                    correcte = checkMoviment(direccio);
+                    if(correcte==true){
+                        posicio[0]++;
+                        super.setPosicioPersonatge(posicio);
+                    }
+                    break;
+                case 'A': case 'D':
+                    correcte = checkMoviment(direccio);
+                    if(correcte==true){
+                        posicio[1]++;
+                        super.setPosicioPersonatge(posicio);
+                    }
+                    break;
+            }
+            if(correcte==false){
+                System.out.println("ERROR! No te puedes mover para alla.");
             }
         }
         public abstract void batalla();
@@ -144,53 +140,55 @@ public abstract class Personatge extends Tabler{
             int numero = tauler[posicio[0]][posicio[1]];
             char respuesta;
             int exit = -1;
-            switch (numero){
-                case 0: //Res
-                    System.out.println("No hay nada en tu casilla. Elige entre estas opciones: ");
-                    System.out.println("M: Moverse" + 
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    respuesta = Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
-                    break;
-                case 1: //Enemic
-                    System.out.println("Te has encontrado con un enemigo. Elige entre estas opciones: ");
-                    System.out.println("B: Batalla" +
-                                        "\nM: Moverse" +
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    respuesta = Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
-                    break;
-                case 2:
-                    System.out.println("Te has encontrado con una moneda. Elige entre estas opciones: ");
-                    System.out.println("M: Moverse" + 
-                                        "\nR: Recoger" +
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    respuesta = Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
-                    break;
-                case 3:
-                    System.out.println("Te has encontrado con una llave. Elige entre estas opciones: ");
-                    System.out.println("M: Moverse" + 
-                                        "\nR: Recoger" +
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    respuesta = Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
-                    break;
-                default:
-                    System.out.println("ERROR!");
-            }
+            do{
+                switch (numero){
+                    case 0: //Res
+                        System.out.println("No hay nada en tu casilla. Elige entre estas opciones: ");
+                        System.out.println("M: Moverse" + 
+                                            "\nC: Cambiar personaje" +
+                                            "\nS: Salir del juego");
+                        respuesta = Teclat.llegirChar();
+                        respuesta = Character.toUpperCase(respuesta);
+                        //Comprovem que la resposta sigui valida
+                        exit = checkOpcionesMenu(numero, respuesta);
+                        break;
+                    case 1: //Enemic
+                        System.out.println("Te has encontrado con un enemigo. Elige entre estas opciones: ");
+                        System.out.println("B: Batalla" +
+                                            "\nM: Moverse" +
+                                            "\nC: Cambiar personaje" +
+                                            "\nS: Salir del juego");
+                        respuesta = Teclat.llegirChar();
+                        respuesta = Character.toUpperCase(respuesta);
+                        //Comprovem que la resposta sigui valida
+                        exit = checkOpcionesMenu(numero, respuesta);
+                        break;
+                    case 2:
+                        System.out.println("Te has encontrado con una moneda. Elige entre estas opciones: ");
+                        System.out.println("M: Moverse" + 
+                                            "\nR: Recoger" +
+                                            "\nC: Cambiar personaje" +
+                                            "\nS: Salir del juego");
+                        respuesta = Teclat.llegirChar();
+                        respuesta = Character.toUpperCase(respuesta);
+                        //Comprovem que la resposta sigui valida
+                        exit = checkOpcionesMenu(numero, respuesta);
+                        break;
+                    case 3:
+                        System.out.println("Te has encontrado con una llave. Elige entre estas opciones: ");
+                        System.out.println("M: Moverse" + 
+                                            "\nR: Recoger" +
+                                            "\nC: Cambiar personaje" +
+                                            "\nS: Salir del juego");
+                        respuesta = Teclat.llegirChar();
+                        respuesta = Character.toUpperCase(respuesta);
+                        //Comprovem que la resposta sigui valida
+                        exit = checkOpcionesMenu(numero, respuesta);
+                        break;
+                    default:
+                        System.out.println("ERROR!");
+                }
+            }while(exit==-1);
             return exit;
 	}
         /**
@@ -206,19 +204,23 @@ public abstract class Personatge extends Tabler{
                         System.out.println("No hay ningun enemigo.");
                     }else{
                         batalla();
+                        exit=0;
                     }
                 case 'R':
                     if(casella == 0 || casella == 1){
                         System.out.println("No hay nada que recoger");
                     }else{
                         recollir();
+                        exit=0;
                     }
                     break;
                 case 'M':
                     missatgeMoure();
+                    exit=0;
                     break;
                 case 'C':   
                     cambiarPersonatge();
+                    exit=0;
                     break;
                 case 'S':
                     exit = salir();
