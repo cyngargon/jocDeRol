@@ -43,21 +43,18 @@ public abstract class Personatge extends Tabler{
         
     //Methods
 	public abstract String missatgePosicio();
-        public void moure(char direccio) {
+        public void moure(char direccio, boolean correcte) {
             int [] posicio;
-            boolean correcte=true;
             posicio = super.getPosicioPersonatge();
             direccio = Character.toUpperCase(direccio);
             switch (direccio){
                 case 'W': case 'S':
-                    correcte = checkMoviment(direccio);
                     if(correcte==true){
                         posicio[0]++;
                         super.setPosicioPersonatge(posicio);
                     }
                     break;
                 case 'A': case 'D':
-                    correcte = checkMoviment(direccio);
                     if(correcte==true){
                         posicio[1]++;
                         super.setPosicioPersonatge(posicio);
@@ -72,6 +69,7 @@ public abstract class Personatge extends Tabler{
         public void programa(){
             int exit;
             dimensioTauler();
+
             generarTauler();
             do{
                 mostrarTauler();
@@ -309,7 +307,7 @@ public abstract class Personatge extends Tabler{
                    exit = 0;
                    break;
                default:
-                   System.out.println("Error.");
+                   System.out.println("ERROR! Introduce una respuesta valida");
                    exit = -1;
            }
            return exit;
