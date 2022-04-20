@@ -8,5 +8,6 @@ public class Main {
                 Personatge p2 = new Mag();
                 p2.programa();
                 
+	
 	}
 }

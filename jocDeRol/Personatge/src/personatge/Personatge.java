@@ -4,7 +4,13 @@ public abstract class Personatge extends Tabler{
     //Attributes
 	private int vides;
 	private int monedes;
-        private boolean clau;
+    private boolean clau;
+	//1 --> GUERRER
+	//2 --> SACERDOT
+	//3 --> MAG
+	private final int GUERRER = 1;
+	private final int SACERDOT = 2;
+	private final int MAG = 3;
 	
     //Constructors
         public Personatge(){
@@ -40,7 +46,71 @@ public abstract class Personatge extends Tabler{
             this.clau = clau;
         }
         
-        
+    //CANVIS PERSONATGE//
+	public int generarPersonatge() {
+		int personatge;
+		personatge = (int) (Math.random()*(3) + 1);
+		return personatge;
+	}
+	public void cambiarPersonatge(int personatge){
+		int respostaPersonatge;
+		boolean repetirPregunta = false;
+		switch (personatge) {
+			case 1:
+				do {
+					System.out.print("Tens el Guerrer, pots canviar a Sacerdot (2) o Mag (3): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 2 && respostaPersonatge != 3) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 2) {
+						personatge = 2;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 3) {
+						personatge = 3;
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			case 2:
+				do {
+					System.out.print("Tens el Sacerdot, pots canviar a Guerrer (1) o Mag (3): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 1 && respostaPersonatge != 3) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 1) {
+						personatge = 1;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 3) {
+						personatge = 3;
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			case 3:
+				do {
+					System.out.print("Tens el Mag, pots canviar a Guerrer (1) o Sacerdot (2): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 1 && respostaPersonatge != 2) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 1) {
+						personatge = 1;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 2) {
+						personatge = 2; 
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			default:
+				break;
+		}
+		
+		System.out.println("El personatge que tens ara és el: " + personatge);//Mostrar els dos personatges que podem canviar
+	}	
+		
     //Methods
 	public abstract String missatgePosicio();
         public void moure(char [] direccio) {
@@ -75,12 +145,14 @@ public abstract class Personatge extends Tabler{
         public abstract void batalla();
         public void programa(){
             int exit;
+			int personatge;
             dimensioTauler();
             generarTauler();
+			personatge = generarPersonatge();
             do{
                 mostrarTauler();
                 super.mostrarPosicio();
-                exit = mostrarMenu();
+                exit = mostrarMenu(personatge);
             }while(exit==0);
         }
         public void dimensioTauler() {
@@ -99,13 +171,6 @@ public abstract class Personatge extends Tabler{
                 super.setTauler(tauler);
             
 	}
-        /*
-        
-        
-        
-        
-        
-        */
         public void mostrarDireccio(){
             System.out.println(missatgePosicio());
             System.out.println("W -> Arriba"
@@ -113,9 +178,7 @@ public abstract class Personatge extends Tabler{
                   + "\nD -> Derecha"
                   + "\nA -> Izquierda");
         }
-        public void cambiarPersonatge(){
-            
-        }
+        
 		//Li he pasat per parametre casella que la tinc en la funcio ckeckOpcionesMenu
         public void recollir(int casella){
 			int [] posicio = super.getPosicioPersonatge();
@@ -154,7 +217,7 @@ public abstract class Personatge extends Tabler{
         /**
          * Mostra el menú depenent de la casella en la que es trovi el personatge
          */
-	public int mostrarMenu() {
+	public int mostrarMenu(int personatge) {
             int [] posicio = super.getPosicioPersonatge();
             int [][] tauler = super.getTauler();
             int numero = tauler[posicio[0]][posicio[1]];
@@ -169,7 +232,7 @@ public abstract class Personatge extends Tabler{
                     respuesta = Teclat.llegirChar();
                     respuesta = Character.toUpperCase(respuesta);
                     //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
+                    exit = checkOpcionesMenu(numero, respuesta, personatge);
                     break;
                 case 1: //Enemic
                     System.out.println("Te has encontrado con un enemigo. Elige entre estas opciones: ");
@@ -180,7 +243,7 @@ public abstract class Personatge extends Tabler{
                     respuesta = Teclat.llegirChar();
                     respuesta = Character.toUpperCase(respuesta);
                     //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
+                    exit = checkOpcionesMenu(numero, respuesta, personatge);
                     break;
                 case 2:
                     System.out.println("Te has encontrado con una moneda. Elige entre estas opciones: ");
@@ -191,7 +254,7 @@ public abstract class Personatge extends Tabler{
                     respuesta = Teclat.llegirChar();
                     respuesta = Character.toUpperCase(respuesta);
                     //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
+                    exit = checkOpcionesMenu(numero, respuesta, personatge);
                     break;
                 case 3:
                     System.out.println("Te has encontrado con una llave. Elige entre estas opciones: ");
@@ -202,7 +265,7 @@ public abstract class Personatge extends Tabler{
                     respuesta = Teclat.llegirChar();
                     respuesta = Character.toUpperCase(respuesta);
                     //Comprovem que la resposta sigui valida
-                    exit = checkOpcionesMenu(numero, respuesta);
+                    exit = checkOpcionesMenu(numero, respuesta, personatge);
                     break;
                 default:
                     System.out.println("ERROR!");
@@ -214,7 +277,7 @@ public abstract class Personatge extends Tabler{
          * @param casella
          * @param respuesta 
          */
-	public int checkOpcionesMenu(int casella, char respuesta) {
+	public int checkOpcionesMenu(int casella, char respuesta, int personatge) {
             int exit = -1;
             switch (respuesta){
                 case 'B':
@@ -235,7 +298,7 @@ public abstract class Personatge extends Tabler{
                     missatgeMoure();
                     break;
                 case 'C':   
-                    cambiarPersonatge();
+                    cambiarPersonatge(personatge);
                     break;
                 case 'S':
                     exit = salir();
