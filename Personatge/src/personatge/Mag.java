@@ -14,35 +14,34 @@ public class Mag extends Personatge{
     
     @Override
     public void missatgeMoure() {
-        boolean errorDireccio, errorMoviment, correcte;
+        boolean errorDireccio, correcte;
+        char [] direccio = new char[3];
+        int i=0, exit=0, a=0, error;
+        char respuesta;
         
-           char [] direccio = new char[3];
-           int i=0, exit=0, a=0, error;
-           char respuesta;
+        do{
+            super.mostrarTauler();
+            super.mostrarPosicio();
             do{
+                mostrarDireccio();
+                direccio[i] = Teclat.llegirChar();
+                direccio[i] = Character.toUpperCase(direccio[i]);
+                //checks
+                errorDireccio = checkDireccio(direccio[i]);
+                error = checkUnicaDireccio(direccio, a);
+                correcte = checkMoviment(direccio[i]);
+            }while(errorDireccio==true|| error==1 ||correcte==false);
+            moure(direccio[i], correcte);
+            i++;
+            a++;
+            if(i<direccio.length -1 || i==direccio.length -1){
                 do{
-                    super.mostrarTauler();
-                    super.mostrarPosicio();
-                    do{
-                        mostrarDireccio();
-                        direccio[i] = Teclat.llegirChar();
-                        direccio[i] = Character.toUpperCase(direccio[i]);
-                        errorDireccio = checkDireccio(direccio[i]);
-                        error = checkUnicaDireccio(direccio, a);
-                        correcte = checkMoviment(direccio[i]);
-                    }while(errorDireccio==true|| error==1 ||correcte==false);
-                    moure(direccio[i], correcte);
-                    i++;
-                    a++;
-                }while(correcte==false);
-                if(i<direccio.length -1 || i==direccio.length -1){
-                    do{
-                        System.out.println("Quieres seguir moviendote? Responde con S/N");
-                        respuesta = Teclat.llegirChar();
-                        exit = super.confirmacion(respuesta);
-                    }while(exit == -1);
-                }
-            }while(exit == 1 && i<direccio.length );
+                    System.out.println("Quieres seguir moviendote? Responde con S/N");
+                    respuesta = Teclat.llegirChar();
+                    exit = super.confirmacion(respuesta);
+                }while(exit == -1);
+            }
+        }while(exit == 1 && i<direccio.length );
     }
     
     public int checkUnicaDireccio(char [] direccio, int a){
@@ -58,7 +57,6 @@ public class Mag extends Personatge{
                 a--;
             }while(error==0 && a>0);
         }
-        
         return error;
     }
 	
