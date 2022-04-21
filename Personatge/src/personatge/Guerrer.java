@@ -16,17 +16,19 @@ public class Guerrer extends Personatge {
 
     @Override
     public void missatgeMoure() {
-        boolean errorDireccio;
+        boolean errorDireccio, correcte;
            char [] direccio = new char[1];
            int i=0;
             do{
+                missatgePosicio();
                 mostrarDireccio();
                 direccio[i] = Teclat.llegirChar();
                 Character.toUpperCase(direccio[i]);
                 errorDireccio = checkDireccio(direccio[i]);
+                correcte = checkMoviment(direccio[i]);
                 i++;
             }while(errorDireccio==true && i<direccio.length);
-           moure(direccio[i]);
+           moure(direccio[i], correcte);
     }
     
     
