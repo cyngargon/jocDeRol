@@ -1,0 +1,69 @@
+
+/***************************************************************************************/
+
+public int generarPersonatge() {
+		int personatge;
+		personatge = (int) (Math.random()*(3) + 1);
+		return personatge;
+}
+
+/***************************************************************************************/
+
+public void cambiarPersonatge(int personatge){
+		int respostaPersonatge;
+		boolean repetirPregunta = false;
+		switch (personatge) {
+			case 1:
+				do {
+					System.out.print("Tens el Guerrer, pots canviar a Sacerdot (2) o Mag (3): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 2 && respostaPersonatge != 3) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 2) {
+						personatge = 2;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 3) {
+						personatge = 3;
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			case 2:
+				do {
+					System.out.print("Tens el Sacerdot, pots canviar a Guerrer (1) o Mag (3): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 1 && respostaPersonatge != 3) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 1) {
+						personatge = 1;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 3) {
+						personatge = 3;
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			case 3:
+				do {
+					System.out.print("Tens el Mag, pots canviar a Guerrer (1) o Sacerdot (2): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 1 && respostaPersonatge != 2) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 1) {
+						personatge = 1;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 2) {
+						personatge = 2; 
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			default:
+				break;
+		}
+		
+		System.out.println("El personatge que tens ara és el: " + personatge);//Mostrar els dos personatges que podem canviar
+	}	
