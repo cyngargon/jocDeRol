@@ -1,0 +1,23 @@
+
+/***************************************************************************************/
+
+public void recollir(int casella){
+			int [] posicio = super.getPosicioPersonatge();
+            int [][] tauler = super.getTauler();
+			int res = super.getRes();
+			switch (casella){
+				case 2:
+					monedes++;
+					System.out.println("S'ha recollit una moneda. Ara en tens |" + monedes + "| monedes.");
+					break;
+				case 3:
+					clau = true;
+					System.out.println("S'ha recollit la clau. Ara tens la clau.");
+					break;
+				default:
+					System.out.println("ERROR");
+			}			
+			tauler[posicio[0]][posicio[1]] = res;
+}
+
+/***************************************************************************************/
