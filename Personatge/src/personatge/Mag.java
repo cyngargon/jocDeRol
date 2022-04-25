@@ -9,15 +9,25 @@ public class Mag extends Personatge{
 
     @Override
     public void batalla() {
-        
+        int enemic = RandomizEnemic();
+		if(enemic == 2){ //Perdo
+			System.out.println("L'enemic és un Sacerdot! Perds la batalla");
+			PerdoBatalla();
+		}
+		else if (enemic == 1){ //Guanyo
+			System.out.println("L'enemic és un Guerrer! Guanyes la batalla");
+			GuanyoBatalla();
+		}
+		else{
+			batalla();
+		}
     }
     
     @Override
     public void missatgeMoure() {
         boolean errorDireccio, correcte;
         char [] direccio = new char[3];
-        int i=0, exit=0, a=0, error;
-        char respuesta;
+        int i=0, exit, a=0, error;
         
         do{
             super.mostrarTauler();
@@ -34,16 +44,22 @@ public class Mag extends Personatge{
             moure(direccio[i], correcte);
             i++;
             a++;
-            if(i<direccio.length -1 || i==direccio.length -1){
+            exit = seguirMovente(i, direccio);
+        }while(exit == 1 && i<direccio.length );
+    }
+    
+    public int seguirMovente(int i, char [] direccio){
+        char respuesta;
+        int exit=0;
+        if(i<direccio.length -1 || i==direccio.length -1){
                 do{
                     System.out.println("Quieres seguir moviendote? Responde con S/N");
                     respuesta = Teclat.llegirChar();
                     exit = super.confirmacion(respuesta);
                 }while(exit == -1);
             }
-        }while(exit == 1 && i<direccio.length );
+        return exit;
     }
-    
     public int checkUnicaDireccio(char [] direccio, int a){
         int error=-1;
         if(a>0){

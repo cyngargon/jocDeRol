@@ -9,7 +9,18 @@ public class Sacerdot extends Personatge{
 
     @Override
     public void batalla() {
-        
+        int enemic = RandomizEnemic();
+		if(enemic == 1){ //Perdo
+			System.out.println("L'enemic és un Guerrer! Perds la batalla");
+			PerdoBatalla();
+		}
+		else if (enemic == 3){ //Guanyo
+			System.out.println("L'enemic és un Mag! Guanyes la batalla");
+			GuanyoBatalla();
+		}
+		else{
+			batalla();
+		}
     }
     
     @Override
