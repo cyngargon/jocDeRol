@@ -1,0 +1,119 @@
+	public void recollir(int casella){
+		int [] posicio = super.getPosicioPersonatge();
+		int [][] tauler = super.getTauler();
+		int res = super.getRes();
+		switch (casella){
+			case 2:
+				monedes++;
+				System.out.println("S'ha recollit una moneda. Ara en tens |" + monedes + "| monedes.");
+				break;
+			case 3:
+				clau = true;
+				System.out.println("S'ha recollit la clau. Ara tens la clau.");
+				break;
+			default:
+				System.out.println("ERROR");
+		}			
+		tauler[posicio[0]][posicio[1]] = res;
+		super.setTauler(tauler);
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		public int RandomizEnemic(){
+			int enemic;
+			int randomizer = (int)Math.random() * 100;
+			if(randomizer < 33){
+				enemic = 1; //Enemic Guerrer
+			}
+			else if (randomizer < 66){
+				enemic = 2; //Enemic Sacerdot
+			}
+			else{
+				enemic = 3; //Enemic Mag
+			}
+			return enemic;
+		}
+		
+		public void PerdoBatalla(){
+			if(getMonedes() < 1){
+				System.out.println("Monedes actuals: " + getMonedes());
+				System.out.println("Perds una vida");
+				System.out.println("Vides actuals: " + getVides());
+				setVides(getVides() - 1);
+			}
+			else{
+				System.out.println("Monedes actuals: " + getMonedes());
+				System.out.println("Perds una moneda");
+				setMonedes(getMonedes() - 1);
+			}
+		}
+		
+		public void GuanyoBatalla(){
+			int [] posicio = super.getPosicioPersonatge();
+			int [][] tauler = super.getTauler();
+			int res = super.getRes();
+			setMonedes(getMonedes() + 1);
+			tauler[posicio[0]][posicio[1]] = res;
+			super.setTauler(tauler);
+		}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////  MAG  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void batalla() {
+        int enemic = RandomizEnemic();
+		if(enemic == 2){ //Perdo
+			System.out.println("L'enemic és un Sacerdot! Perds la batalla");
+			PerdoBatalla();
+		}
+		else if (enemic == 1){ //Guanyo
+			System.out.println("L'enemic és un Guerrer! Guanyes la batalla");
+			GuanyoBatalla();
+		}
+		else{
+			batalla();
+		}
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////  SACERDOT  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void batalla() {
+		int enemic = RandomizEnemic();
+		if(enemic == 1){ //Perdo
+			System.out.println("L'enemic és un Guerrer! Perds la batalla");
+			PerdoBatalla();
+		}
+		else if (enemic == 3){ //Guanyo
+			System.out.println("L'enemic és un Mag! Guanyes la batalla");
+			GuanyoBatalla();
+		}
+		else{
+			batalla();
+		}
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////  GUERRER  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void batalla() {
+        int enemic = RandomizEnemic();
+		if(enemic == 3){ //Perdo
+			System.out.println("L'enemic és un Mag! Perds la batalla");
+			PerdoBatalla();
+		}
+		else if (enemic == 2){ //Guanyo
+			System.out.println("L'enemic és un Sacerdot! Guanyes la batalla");
+			GuanyoBatalla();
+		}
+		else{
+			batalla();
+		}
+    }
