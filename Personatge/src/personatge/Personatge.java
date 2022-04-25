@@ -8,8 +8,12 @@ public abstract class Personatge extends Tabler{
 	
     //Constructors
         public Personatge(){
+            this.vides = 3;
+            this.monedes = 5;
+            this.clau = false;
         }
         public Personatge(int vides, int monedes, boolean clau) {
+            this();
             this.vides = vides;
             this.monedes = monedes;
             this.clau = clau;
@@ -69,11 +73,11 @@ public abstract class Personatge extends Tabler{
         public void programa(){
             int exit;
             dimensioTauler();
-
             generarTauler();
             do{
                 mostrarTauler();
                 super.mostrarPosicio();
+                System.out.println("Tens " + getMonedes() + " monedes.");
                 exit = mostrarMenu();
             }while(exit==0);
         }
@@ -93,13 +97,6 @@ public abstract class Personatge extends Tabler{
                 super.setTauler(tauler);
             
 	}
-        /*
-        
-        
-        
-        
-        
-        */
         public void mostrarDireccio(){
             System.out.println(missatgePosicio());
             System.out.println("W -> Arriba"
@@ -107,11 +104,82 @@ public abstract class Personatge extends Tabler{
                   + "\nD -> Derecha"
                   + "\nA -> Izquierda");
         }
-        public void cambiarPersonatge(){
-            
+        public void cambiarPersonatge(int personatge){
+            int respostaPersonatge;
+		boolean repetirPregunta = false;
+		switch (personatge) {
+			case 1:
+				do {
+					System.out.print("Tens el Guerrer, pots canviar a Sacerdot (2) o Mag (3): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 2 && respostaPersonatge != 3) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 2) {
+						personatge = 2;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 3) {
+						personatge = 3;
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			case 2:
+				do {
+					System.out.print("Tens el Sacerdot, pots canviar a Guerrer (1) o Mag (3): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 1 && respostaPersonatge != 3) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 1) {
+						personatge = 1;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 3) {
+						personatge = 3;
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			case 3:
+				do {
+					System.out.print("Tens el Mag, pots canviar a Guerrer (1) o Sacerdot (2): ");
+					respostaPersonatge = Teclat.llegirInt();
+					if (respostaPersonatge != 1 && respostaPersonatge != 2) {
+						System.out.println("ERROR");
+						repetirPregunta = true;
+					} else if (respostaPersonatge == 1) {
+						personatge = 1;
+						repetirPregunta = false;
+					} else if (respostaPersonatge == 2) {
+						personatge = 2; 
+						repetirPregunta = false;
+					}
+				} while (repetirPregunta == true);
+				break;
+			default:
+				break;
+                        }
+                System.out.println("El personatge que tens ara és el: " + personatge);//Mostrar els dos personatges que podem canviar
         }
-        public void recollir(){
-            
+                
+        public void recollir(int casella){
+            int [] posicio = super.getPosicioPersonatge();
+		int [][] tauler = super.getTauler();
+		int res = super.getRES();
+		switch (casella){
+			case 2:
+				monedes++;
+				System.out.println("S'ha recollit una moneda. Ara en tens |" + monedes + "| monedes.");
+				break;
+			case 3:
+				clau = true;
+				System.out.println("S'ha recollit la clau. Ara tens la clau.");
+				break;
+			default:
+				System.out.println("ERROR");
+		}			
+		tauler[posicio[0]][posicio[1]] = res;
+		super.setTauler(tauler);
         }
         
         
@@ -208,7 +276,7 @@ public abstract class Personatge extends Tabler{
                     if(casella == 0 || casella == 1){
                         System.out.println("No hay nada que recoger");
                     }else{
-                        recollir();
+                        recollir(casella);
                         exit=0;
                     }
                     break;
@@ -216,8 +284,9 @@ public abstract class Personatge extends Tabler{
                     missatgeMoure();
                     exit=0;
                     break;
-                case 'C':   
-                    cambiarPersonatge();
+                case 'C':  
+                    //Com obtenim el nostre personatge?
+                    //cambiarPersonatge();
                     exit=0;
                     break;
                 case 'S':
@@ -277,6 +346,9 @@ public abstract class Personatge extends Tabler{
                 default:
                     System.out.println("Error del programa.");
             }
+            if(correcte==false){
+                System.out.println("Compte! Et chocaràs!");
+            }
             return correcte;
         }
         
@@ -312,5 +384,47 @@ public abstract class Personatge extends Tabler{
            }
            return exit;
        }
+       public int RandomizEnemic(){
+            int enemic;
+            int randomizer = (int)Math.random() * 100;
+            if(randomizer < 33){
+                    enemic = 1; //Enemic Guerrer
+            }
+            else if (randomizer < 66){
+                    enemic = 2; //Enemic Sacerdot
+            }
+            else{
+                    enemic = 3; //Enemic Mag
+            }
+            return enemic;
+        }
+		
+        public void PerdoBatalla(){
+                if(getMonedes() < 1){
+                        System.out.println("Monedes actuals: " + getMonedes());
+                        System.out.println("Perds una vida");
+                        System.out.println("Vides actuals: " + getVides());
+                        setVides(getVides() - 1);
+                }
+                else{
+                        System.out.println("Monedes actuals: " + getMonedes());
+                        System.out.println("Perds una moneda");
+                        setMonedes(getMonedes() - 1);
+                }
+        }
+		
+        public void GuanyoBatalla(){
+                int [] posicio = super.getPosicioPersonatge();
+                int [][] tauler = super.getTauler();
+                int res = super.getRES();
+                setMonedes(getMonedes() + 1);
+                tauler[posicio[0]][posicio[1]] = res;
+                super.setTauler(tauler);
+        }
         
+        public int generarPersonatge() {
+		int personatge;
+		personatge = (int) (Math.random()*(3) + 1);
+		return personatge;
+        }
 }

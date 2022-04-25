@@ -35,6 +35,21 @@ public class Tabler {
 		this.posicioPersonatge = posicioPersonatge;
 	}
 	
+        public int getRES() {
+            return RES;
+        }
+
+        public int getENEMIC() {
+            return ENEMIC;
+        }
+
+        public int getMONEDA() {
+            return MONEDA;
+        }
+
+        public int getCLAU() {
+            return CLAU;
+        }
     //Methods
         /**
          * Pregunta files i columnes del mapa

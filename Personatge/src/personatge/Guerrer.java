@@ -11,7 +11,18 @@ public class Guerrer extends Personatge {
 
     @Override
     public void batalla() {
-        
+        int enemic = RandomizEnemic();
+		if(enemic == 3){ //Perdo
+			System.out.println("L'enemic és un Mag! Perds la batalla");
+			PerdoBatalla();
+		}
+		else if (enemic == 2){ //Guanyo
+			System.out.println("L'enemic és un Sacerdot! Guanyes la batalla");
+			GuanyoBatalla();
+		}
+		else{
+			batalla();
+		}
     }
 
     @Override
