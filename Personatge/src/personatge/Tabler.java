@@ -8,6 +8,7 @@ public class Tabler {
     //Attributes
 	private int[][] tauler;
 	private int[] posicioPersonatge;
+        private final int SORTIDA = -1;
         private final int RES = 0;
 	private final int ENEMIC = 1;
 	private final int MONEDA = 2;
@@ -50,6 +51,10 @@ public class Tabler {
         public int getCLAU() {
             return CLAU;
         }
+        
+        public int getSORTIDA(){
+            return SORTIDA;
+        }
     //Methods
         /**
          * Pregunta files i columnes del mapa
@@ -75,7 +80,7 @@ public class Tabler {
          * Genera el tauler
          */
 	public void generarTauler() {		
-		int filaClau, columnaClau;
+		int filaClau, columnaClau, filaSortida, columnaSortida;
 		for (int i = 0; i < tauler.length; i++) {
 			for (int j = 0; j < tauler[0].length; j++) {
 				tauler[i][j] = (int) (Math.random()*3);
@@ -84,6 +89,9 @@ public class Tabler {
 		filaClau = (int) (Math.random()*tauler.length);
 		columnaClau = (int) (Math.random()*tauler[0].length);
 		tauler [filaClau][columnaClau] = CLAU;
+                filaSortida = tauler.length -1;
+                columnaSortida = tauler[0].length -1;
+                tauler[filaSortida][columnaSortida] = SORTIDA;
 	}
         
 	/**

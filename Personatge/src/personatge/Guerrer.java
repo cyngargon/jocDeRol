@@ -30,6 +30,8 @@ public class Guerrer extends Personatge {
         boolean errorDireccio, correcte;
            char [] direccio = new char[1];
            int i=0;
+           int guanyar = sortida();
+           if(guanyar==-1||guanyar==0){
             do{
                 missatgePosicio();
                 mostrarDireccio();
@@ -39,7 +41,8 @@ public class Guerrer extends Personatge {
                 correcte = checkMoviment(direccio[i]);
                 i++;
             }while(errorDireccio==true && i<direccio.length);
-           moure(direccio[i], correcte);
+            moure(direccio[i], correcte);
+           }
     }
     
     
