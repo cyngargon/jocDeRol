@@ -1,6 +1,6 @@
 package personatge;
 
-public class Tabler {
+public class Tabler{
     //0 --> RES
 	//1 --> ENEMIC
 	//2 --> MONEDA
@@ -13,7 +13,7 @@ public class Tabler {
 	private final int ENEMIC = 1;
 	private final int MONEDA = 2;
 	private final int CLAU = 3;
-    
+        
     //Constructors
 	public Tabler() {
 		this.posicioPersonatge = new int [] {0, 0};
@@ -120,5 +120,7 @@ public class Tabler {
             final int ZERO = 0, U = 1;
             System.out.println("Estas en la posición: " + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
         }
+        
+        
 	
 }

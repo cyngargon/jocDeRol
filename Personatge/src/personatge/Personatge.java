@@ -5,18 +5,21 @@ public abstract class Personatge extends Tabler{
 	private int vides;
 	private int monedes;
         private boolean clau;
+        private boolean actiu;
 	
     //Constructors
         public Personatge(){
             this.vides = 3;
             this.monedes = 5;
             this.clau = false;
+            this.actiu = false;
         }
-        public Personatge(int vides, int monedes, boolean clau) {
+        public Personatge(int vides, int monedes, boolean clau, boolean actiu) {
             this();
             this.vides = vides;
             this.monedes = monedes;
             this.clau = clau;
+            this.actiu = actiu;
         }
         
     //Getter and setter
@@ -42,6 +45,14 @@ public abstract class Personatge extends Tabler{
 
         public void setClau(boolean clau) {
             this.clau = clau;
+        }
+        
+        public boolean isActiu() {
+            return actiu;
+        }
+
+        public void setActiu(boolean actiu) {
+            this.actiu = actiu;
         }
         
         
@@ -82,16 +93,23 @@ public abstract class Personatge extends Tabler{
             }
         }
         public abstract void batalla();
-        public void programa(){
+        public int iniciPrograma(){
             int exit;
             dimensioTauler();
             generarTauler();
+            exit = programa();
+            return exit;
+        }
+        public int programa(){
+            int exit;
             do{
                 mostrarTauler();
                 super.mostrarPosicio();
                 System.out.println("Tens " + getMonedes() + " monedes.");
                 exit = mostrarMenu();
             }while(exit==0);
+            
+            return exit;
         }
         public void dimensioTauler() {
 		int [] dimensions = new int [2];
@@ -115,63 +133,6 @@ public abstract class Personatge extends Tabler{
                   + "\nS -> Abajo"
                   + "\nD -> Derecha"
                   + "\nA -> Izquierda");
-        }
-        public void cambiarPersonatge(int personatge){
-            int respostaPersonatge;
-		boolean repetirPregunta = false;
-		switch (personatge) {
-			case 1:
-				do {
-					System.out.print("Tens el Guerrer, pots canviar a Sacerdot (2) o Mag (3): ");
-					respostaPersonatge = Teclat.llegirInt();
-					if (respostaPersonatge != 2 && respostaPersonatge != 3) {
-						System.out.println("ERROR");
-						repetirPregunta = true;
-					} else if (respostaPersonatge == 2) {
-						personatge = 2;
-						repetirPregunta = false;
-					} else if (respostaPersonatge == 3) {
-						personatge = 3;
-						repetirPregunta = false;
-					}
-				} while (repetirPregunta == true);
-				break;
-			case 2:
-				do {
-					System.out.print("Tens el Sacerdot, pots canviar a Guerrer (1) o Mag (3): ");
-					respostaPersonatge = Teclat.llegirInt();
-					if (respostaPersonatge != 1 && respostaPersonatge != 3) {
-						System.out.println("ERROR");
-						repetirPregunta = true;
-					} else if (respostaPersonatge == 1) {
-						personatge = 1;
-						repetirPregunta = false;
-					} else if (respostaPersonatge == 3) {
-						personatge = 3;
-						repetirPregunta = false;
-					}
-				} while (repetirPregunta == true);
-				break;
-			case 3:
-				do {
-					System.out.print("Tens el Mag, pots canviar a Guerrer (1) o Sacerdot (2): ");
-					respostaPersonatge = Teclat.llegirInt();
-					if (respostaPersonatge != 1 && respostaPersonatge != 2) {
-						System.out.println("ERROR");
-						repetirPregunta = true;
-					} else if (respostaPersonatge == 1) {
-						personatge = 1;
-						repetirPregunta = false;
-					} else if (respostaPersonatge == 2) {
-						personatge = 2; 
-						repetirPregunta = false;
-					}
-				} while (repetirPregunta == true);
-				break;
-			default:
-				break;
-                        }
-                System.out.println("El personatge que tens ara és el: " + personatge);//Mostrar els dos personatges que podem canviar
         }
                 
         public void recollir(int casella){
@@ -297,9 +258,7 @@ public abstract class Personatge extends Tabler{
                     exit=0;
                     break;
                 case 'C':  
-                    //Com obtenim el nostre personatge?
-                    //cambiarPersonatge();
-                    exit=0;
+                    exit = -2;
                     break;
                 case 'S':
                     exit = salir();
@@ -467,4 +426,11 @@ public abstract class Personatge extends Tabler{
            }
            return guanyar;
     }
+        
+        public void passarDades(int vides, int monedes, boolean clau, boolean actiu){
+            this.setVides(vides);
+            this.setMonedes(monedes);
+            this.setClau(clau);
+            this.setActiu(actiu);
+        }
 }

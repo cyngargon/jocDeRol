@@ -1,7 +1,13 @@
 package personatge;
 
 public class Guerrer extends Personatge {
-
+    
+    public Guerrer(){
+        
+    }
+    public Guerrer(Personatge personatge){
+        super(personatge.getVides(), personatge.getMonedes(), personatge.isClau(), personatge.isActiu());
+    }
     @Override
     public String missatgePosicio() {
             return "Et pots moures d'1 en 1";
