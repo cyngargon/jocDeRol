@@ -2,6 +2,14 @@ package personatge;
 
 public class Sacerdot extends Personatge{
 
+    public Sacerdot(){
+        
+    }
+    
+    public Sacerdot(Personatge personatge){
+        super(personatge.getVides(), personatge.getMonedes(), personatge.isClau(), personatge.isActiu());
+    }
+    
     @Override
     public String missatgePosicio() {
             return "Et pots moures d'1 en 1 | de 2 en 2";
