@@ -52,13 +52,25 @@ public abstract class Personatge extends Tabler{
             posicio = super.getPosicioPersonatge();
             direccio = Character.toUpperCase(direccio);
             switch (direccio){
-                case 'W': case 'S':
+                case 'W':
+                    if(correcte==true){
+                        posicio[0]--;
+                        super.setPosicioPersonatge(posicio);
+                    }
+                    break;
+                case 'S':
                     if(correcte==true){
                         posicio[0]++;
                         super.setPosicioPersonatge(posicio);
                     }
                     break;
-                case 'A': case 'D':
+                case 'A':
+                    if(correcte==true){
+                        posicio[1]--;
+                        super.setPosicioPersonatge(posicio);
+                    }
+                    break;
+                case 'D':
                     if(correcte==true){
                         posicio[1]++;
                         super.setPosicioPersonatge(posicio);
@@ -169,7 +181,7 @@ public abstract class Personatge extends Tabler{
 		switch (casella){
 			case 2:
 				monedes++;
-				System.out.println("S'ha recollit una moneda. Ara en tens |" + monedes + "| monedes.");
+				System.out.println("S'ha recollit una moneda.");
 				break;
 			case 3:
 				clau = true;
@@ -386,7 +398,7 @@ public abstract class Personatge extends Tabler{
        }
        public int RandomizEnemic(){
             int enemic;
-            int randomizer = (int)Math.random() * 100;
+            int randomizer = (int)(Math.random() * 100);
             if(randomizer < 33){
                     enemic = 1; //Enemic Guerrer
             }
@@ -427,4 +439,32 @@ public abstract class Personatge extends Tabler{
 		personatge = (int) (Math.random()*(3) + 1);
 		return personatge;
         }
+        
+        public int sortida(){
+        int[][] tauler = super.getTauler();
+           final int SORTIDA = super.getSORTIDA();
+           int [] posicio = super.getPosicioPersonatge();
+           int monedes = getMonedes();
+           boolean clau = isClau();
+           int guanyar=-1;
+           if(tauler[posicio[0]][posicio[1]] == SORTIDA){
+               System.out.println("Estas en la sortida.");
+               if(monedes>=5 && clau==true){
+                   System.out.println("Has guanyat!");
+                   guanyar = 1;
+               }else{
+                   if(monedes<5){
+                       System.out.println("No pots acabar el joc encara. Et falten monedes");
+                   }else if(clau==false){
+                       System.out.println("No pots acabar el joc encara. Has de trovar la clau");
+                   }
+                   System.out.println("Tornes a l'inici.");
+                   guanyar = 0;
+                   posicio[0]=0;
+                   posicio[1]=0;
+                   super.setPosicioPersonatge(posicio);
+               }
+           }
+           return guanyar;
+    }
 }

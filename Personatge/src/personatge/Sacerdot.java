@@ -28,6 +28,8 @@ public class Sacerdot extends Personatge{
         boolean errorDireccio, correcte;
            char [] direccio = new char[2];
            int i=0;
+           int guanyar = sortida();
+           if(guanyar==-1||guanyar==0){
             do{
                 missatgePosicio();
                 mostrarDireccio();
@@ -37,7 +39,8 @@ public class Sacerdot extends Personatge{
                 correcte = checkMoviment(direccio[i]);
                 i++;
             }while(errorDireccio==true && i<direccio.length);
-           moure(direccio[i], correcte);
+            moure(direccio[i], correcte);
+           }
     }
 	
 }

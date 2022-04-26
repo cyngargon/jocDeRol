@@ -26,26 +26,21 @@ public class Mag extends Personatge{
     @Override
     public void missatgeMoure() {
         boolean errorDireccio, correcte;
-        char [] direccio = new char[3];
-        int i=0, exit, a=0, error;
-        
-        do{
-            super.mostrarTauler();
-            super.mostrarPosicio();
+           char [] direccio = new char[3];
+           int i=0;
+           int guanyar = sortida();
+           if(guanyar==-1||guanyar==0){
             do{
+                missatgePosicio();
                 mostrarDireccio();
                 direccio[i] = Teclat.llegirChar();
-                direccio[i] = Character.toUpperCase(direccio[i]);
-                //checks
+                Character.toUpperCase(direccio[i]);
                 errorDireccio = checkDireccio(direccio[i]);
-                error = checkUnicaDireccio(direccio, a);
                 correcte = checkMoviment(direccio[i]);
-            }while(errorDireccio==true|| error==1 ||correcte==false);
+                i++;
+            }while(errorDireccio==true && i<direccio.length);
             moure(direccio[i], correcte);
-            i++;
-            a++;
-            exit = seguirMovente(i, direccio);
-        }while(exit == 1 && i<direccio.length );
+           }
     }
     
     public int seguirMovente(int i, char [] direccio){
