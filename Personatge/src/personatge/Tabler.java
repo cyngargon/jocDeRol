@@ -203,7 +203,7 @@ public class Tabler{
             
             switch (respuesta){
                 case 'B':
-                    if(casella == 2||casella == 3||casella == 0){
+                    if(casella == TFicha.LLAVE.ordinal()||casella == TFicha.MONEDA.ordinal()||casella == TFicha.NADA.ordinal() || casella==TFicha.SALIDA.ordinal()){
                         System.out.println("No hay ningun enemigo.");
                     }else{
                         resultatBatalla = getPersonatge().batalla();
@@ -214,13 +214,15 @@ public class Tabler{
                             case 1:
                                 guanyoBatalla();
                                 break;
+                            case -1:
+                                System.out.println("Has empatado.");
                             default:
                                 System.out.println("Error");
                         }
                         exit=0;
                     }
                 case 'R':
-                    if(casella == 0 || casella == 1){
+                    if(casella == TFicha.ENEMIGO.ordinal() || casella == TFicha.NADA.ordinal() || casella == TFicha.SALIDA.ordinal()){
                         System.out.println("No hay nada que recoger");
                     }else{
                         recollir(casella);
