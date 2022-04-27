@@ -5,9 +5,6 @@ public class Guerrer extends Personatge {
     public Guerrer(){
         
     }
-    public Guerrer(Personatge personatge){
-        super(personatge.getVides(), personatge.getMonedes(), personatge.isClau(), personatge.isActiu());
-    }
     @Override
     public String missatgePosicio() {
             return "Et pots moures d'1 en 1";
@@ -16,40 +13,25 @@ public class Guerrer extends Personatge {
     
 
     @Override
-    public void batalla() {
+    public int batalla() {
         int enemic = RandomizEnemic();
-		if(enemic == 3){ //Perdo
-			System.out.println("L'enemic és un Mag! Perds la batalla");
-			PerdoBatalla();
-		}
-		else if (enemic == 2){ //Guanyo
-			System.out.println("L'enemic és un Sacerdot! Guanyes la batalla");
-			GuanyoBatalla();
-		}
-		else{
-			batalla();
-		}
+        int resultatBatalla;
+            if(enemic == 3){ //Perdo
+                    System.out.println("L'enemic és un Mag! Perds la batalla");
+                    resultatBatalla=0;
+            }
+            else if (enemic == 2){ //Guanyo
+                    System.out.println("L'enemic és un Sacerdot! Guanyes la batalla");
+                    resultatBatalla = 1;
+            }
+            else{ //Empat
+                resultatBatalla = -1;
+                    batalla();
+            }
+            return resultatBatalla;
     }
 
-    @Override
-    public void missatgeMoure() {
-        boolean errorDireccio, correcte;
-           char [] direccio = new char[1];
-           int i=0;
-           int guanyar = sortida();
-           if(guanyar==-1||guanyar==0){
-            do{
-                missatgePosicio();
-                mostrarDireccio();
-                direccio[i] = Teclat.llegirChar();
-                Character.toUpperCase(direccio[i]);
-                errorDireccio = checkDireccio(direccio[i]);
-                correcte = checkMoviment(direccio[i]);
-                i++;
-            }while(errorDireccio==true && i<direccio.length);
-            moure(direccio[i], correcte);
-           }
-    }
+    
     
     
 	
