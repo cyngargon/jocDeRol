@@ -5,9 +5,6 @@ public class Mag extends Personatge{
     public Mag(){
         
     }
-    public Mag(Personatge personatge){
-        super(personatge.getVides(), personatge.getMonedes(), personatge.isClau(), personatge.isActiu());
-    }
     
     @Override
     public String missatgePosicio() {
@@ -15,39 +12,26 @@ public class Mag extends Personatge{
     }
 
     @Override
-    public void batalla() {
-        int enemic = RandomizEnemic();
-		if(enemic == 2){ //Perdo
-			System.out.println("L'enemic és un Sacerdot! Perds la batalla");
-			PerdoBatalla();
-		}
-		else if (enemic == 1){ //Guanyo
-			System.out.println("L'enemic és un Guerrer! Guanyes la batalla");
-			GuanyoBatalla();
-		}
-		else{
-			batalla();
-		}
-    }
-    
-    @Override
-    public void missatgeMoure() {
-        boolean errorDireccio, correcte;
-           char [] direccio = new char[3];
-           int i=0;
-           int guanyar = sortida();
-           if(guanyar==-1||guanyar==0){
-            do{
-                missatgePosicio();
-                mostrarDireccio();
-                direccio[i] = Teclat.llegirChar();
-                Character.toUpperCase(direccio[i]);
-                errorDireccio = checkDireccio(direccio[i]);
-                correcte = checkMoviment(direccio[i]);
-                i++;
-            }while(errorDireccio==true && i<direccio.length);
-            moure(direccio[i], correcte);
-           }
+    public int batalla() {
+        int enemic = RandomizEnemic(), resultatBatalla=-1;
+        switch (enemic) {
+            case 2:
+                //Perdo
+                System.out.println("L'enemic és un Sacerdot! Perds la batalla");
+                resultatBatalla=0;
+                break;
+            case 1:
+                //Guanyo
+                System.out.println("L'enemic és un Guerrer! Guanyes la batalla");
+                resultatBatalla=1;
+                break;
+            default:
+                //Empat
+                System.out.println("Has empatat");
+                batalla();
+                break;
+        }
+            return resultatBatalla;
     }
     
     public int seguirMovente(int i, char [] direccio){

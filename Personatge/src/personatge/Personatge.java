@@ -1,25 +1,23 @@
 package personatge;
 
-public abstract class Personatge extends Tabler{
+public abstract class Personatge{
     //Attributes
 	private int vides;
 	private int monedes;
         private boolean clau;
-        private boolean actiu;
-	
+        private int [] posicio;
+        
     //Constructors
         public Personatge(){
             this.vides = 3;
             this.monedes = 5;
             this.clau = false;
-            this.actiu = false;
         }
-        public Personatge(int vides, int monedes, boolean clau, boolean actiu) {
+        public Personatge(int vides, int monedes, boolean clau) {
             this();
             this.vides = vides;
             this.monedes = monedes;
             this.clau = clau;
-            this.actiu = actiu;
         }
         
     //Getter and setter
@@ -47,44 +45,42 @@ public abstract class Personatge extends Tabler{
             this.clau = clau;
         }
         
-        public boolean isActiu() {
-            return actiu;
+        public int[] getPosicio() {
+            return posicio;
         }
 
-        public void setActiu(boolean actiu) {
-            this.actiu = actiu;
+        public void setPosicio(int[] posicio) {
+            this.posicio = posicio;
         }
-        
         
     //Methods
 	public abstract String missatgePosicio();
+        public abstract int batalla();
         public void moure(char direccio, boolean correcte) {
-            int [] posicio;
-            posicio = super.getPosicioPersonatge();
             direccio = Character.toUpperCase(direccio);
             switch (direccio){
                 case 'W':
                     if(correcte==true){
-                        posicio[0]--;
-                        super.setPosicioPersonatge(posicio);
+                        getPosicio()[0]--;
+                        setPosicio(posicio);
                     }
                     break;
                 case 'S':
                     if(correcte==true){
-                        posicio[0]++;
-                        super.setPosicioPersonatge(posicio);
+                        getPosicio()[0]++;
+                        setPosicio(posicio);
                     }
                     break;
                 case 'A':
                     if(correcte==true){
-                        posicio[1]--;
-                        super.setPosicioPersonatge(posicio);
+                        getPosicio()[1]--;
+                        setPosicio(posicio);
                     }
                     break;
                 case 'D':
                     if(correcte==true){
-                        posicio[1]++;
-                        super.setPosicioPersonatge(posicio);
+                        getPosicio()[1]++;
+                        setPosicio(posicio);
                     }
                     break;
             }
@@ -92,41 +88,6 @@ public abstract class Personatge extends Tabler{
                 System.out.println("ERROR! No te puedes mover para alla.");
             }
         }
-        public abstract void batalla();
-        public int iniciPrograma(){
-            int exit;
-            dimensioTauler();
-            generarTauler();
-            exit = programa();
-            return exit;
-        }
-        public int programa(){
-            int exit;
-            do{
-                mostrarTauler();
-                super.mostrarPosicio();
-                System.out.println("Tens " + getMonedes() + " monedes.");
-                exit = mostrarMenu();
-            }while(exit==0);
-            
-            return exit;
-        }
-        public void dimensioTauler() {
-		int [] dimensions = new int [2];
-		boolean checkDimension;
-                int [][] tauler;
-		//Condicional 5 al 20
-		do{
-			System.out.print("Introduce las columnas del mapa: ");
-			dimensions[0] = Teclat.llegirInt();
-			System.out.print("Introduce las filas del mapa: ");
-			dimensions[1] = Teclat.llegirInt();
-                        checkDimension = checkDimensions(dimensions);
-		}while(checkDimension == false);
-		tauler = new int[dimensions[0]][dimensions[1]];
-                super.setTauler(tauler);
-            
-	}
         public void mostrarDireccio(){
             System.out.println(missatgePosicio());
             System.out.println("W -> Arriba"
@@ -134,11 +95,7 @@ public abstract class Personatge extends Tabler{
                   + "\nD -> Derecha"
                   + "\nA -> Izquierda");
         }
-                
         public void recollir(int casella){
-            int [] posicio = super.getPosicioPersonatge();
-		int [][] tauler = super.getTauler();
-		int res = super.getRES();
 		switch (casella){
 			case 2:
 				monedes++;
@@ -150,185 +107,9 @@ public abstract class Personatge extends Tabler{
 				break;
 			default:
 				System.out.println("ERROR");
-		}			
-		tauler[posicio[0]][posicio[1]] = res;
-		super.setTauler(tauler);
+		}
         }
-        
-        
-        public boolean checkDireccio(char respuesta){
-            respuesta = Character.toUpperCase(respuesta);
-            boolean error;
-            switch (respuesta){
-                case 'W': case 'S': case 'A': case 'D':
-                    error = false;
-                    break;
-                default:
-                    error = true;
-                    System.out.println("Opción incorrecta.");
-            }
-            return error;
-        }
-        
-        /**
-         * Mostra el menú depenent de la casella en la que es trovi el personatge
-         */
-	public int mostrarMenu() {
-            int [] posicio = super.getPosicioPersonatge();
-            int [][] tauler = super.getTauler();
-            int numero = tauler[posicio[0]][posicio[1]];
-            char respuesta;
-            int exit = -1;
-            do{
-                switch (numero){
-                    case 0: //Res
-                        System.out.println("No hay nada en tu casilla. Elige entre estas opciones: ");
-                        System.out.println("M: Moverse" + 
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
-                        respuesta = Teclat.llegirChar();
-                        respuesta = Character.toUpperCase(respuesta);
-                        //Comprovem que la resposta sigui valida
-                        exit = checkOpcionesMenu(numero, respuesta);
-                        break;
-                    case 1: //Enemic
-                        System.out.println("Te has encontrado con un enemigo. Elige entre estas opciones: ");
-                        System.out.println("B: Batalla" +
-                                            "\nM: Moverse" +
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
-                        respuesta = Teclat.llegirChar();
-                        respuesta = Character.toUpperCase(respuesta);
-                        //Comprovem que la resposta sigui valida
-                        exit = checkOpcionesMenu(numero, respuesta);
-                        break;
-                    case 2:
-                        System.out.println("Te has encontrado con una moneda. Elige entre estas opciones: ");
-                        System.out.println("M: Moverse" + 
-                                            "\nR: Recoger" +
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
-                        respuesta = Teclat.llegirChar();
-                        respuesta = Character.toUpperCase(respuesta);
-                        //Comprovem que la resposta sigui valida
-                        exit = checkOpcionesMenu(numero, respuesta);
-                        break;
-                    case 3:
-                        System.out.println("Te has encontrado con una llave. Elige entre estas opciones: ");
-                        System.out.println("M: Moverse" + 
-                                            "\nR: Recoger" +
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
-                        respuesta = Teclat.llegirChar();
-                        respuesta = Character.toUpperCase(respuesta);
-                        //Comprovem que la resposta sigui valida
-                        exit = checkOpcionesMenu(numero, respuesta);
-                        break;
-                    default:
-                        System.out.println("ERROR!");
-                }
-            }while(exit==-1);
-            return exit;
-	}
-        /**
-         * Comprovar que les respostes siguin valides
-         * @param casella
-         * @param respuesta 
-         */
-	public int checkOpcionesMenu(int casella, char respuesta) {
-            int exit = -1;
-            switch (respuesta){
-                case 'B':
-                    if(casella == 2||casella == 3||casella == 0){
-                        System.out.println("No hay ningun enemigo.");
-                    }else{
-                        batalla();
-                        exit=0;
-                    }
-                case 'R':
-                    if(casella == 0 || casella == 1){
-                        System.out.println("No hay nada que recoger");
-                    }else{
-                        recollir(casella);
-                        exit=0;
-                    }
-                    break;
-                case 'M':
-                    missatgeMoure();
-                    exit=0;
-                    break;
-                case 'C':  
-                    exit = -2;
-                    break;
-                case 'S':
-                    exit = salir();
-                    break;
-                default:
-                    System.out.println("Opción incorrecta.");
-            }
-            return exit;
-	}
-        /**
-         * Comprovar que es pot moure cap a aquella direccio
-         * @param direccio
-         * @return 
-         */
-        public boolean checkMoviment(char direccio){
-            //si no es choca
-            //total - posicion < al length de la direccio
-            int [] posicio = super.getPosicioPersonatge();
-            int [][] tauler = super.getTauler();
-            //FILAS W y S
-            //COLUMNAS A y D
-            //tauler[0].length y posicio[0] --> filas 
-            //tauler.length y posicio [1] --> columnas
-            int maxLengthVertical = tauler[0].length - posicio[0];
-            int maxLengthHoritzontal = tauler.length - posicio[1];
-            boolean correcte = true;
-            switch(direccio){
-                case 'S':
-                    if(maxLengthVertical>0){
-                        correcte=true;
-                    }else{
-                        correcte=false;
-                    }
-                    break;
-                case 'W':
-                    if(posicio[0]>0){
-                        correcte=true;
-                    }else{
-                        correcte=false;
-                    }
-                    break;
-                case 'D':
-                    if(maxLengthHoritzontal>0){
-                        correcte=true;
-                    }else{
-                        correcte=false;
-                    }
-                    break;
-                case 'A':
-                    if(posicio[1]>0){
-                        correcte=true;
-                    }else{
-                        correcte=false;
-                    }
-                    break;
-                default:
-                    System.out.println("Error del programa.");
-            }
-            if(correcte==false){
-                System.out.println("Compte! Et chocaràs!");
-            }
-            return correcte;
-        }
-        
-        /**
-        * Mostra el missatge de la posicio i chequeja de que ho hagi introduit bé
-        */
-       public abstract void missatgeMoure();
-       
-       public int salir(){
+        public int salir(){
            char respuesta;
            int exit;
            do{
@@ -337,9 +118,8 @@ public abstract class Personatge extends Tabler{
             exit = confirmacion(respuesta);
            }while(exit == -1);
            return exit;
-       }
-       
-       public int confirmacion(char respuesta){
+        }
+        public int confirmacion(char respuesta){
            int exit;
            respuesta = Character.toUpperCase(respuesta);
            switch(respuesta){
@@ -355,7 +135,7 @@ public abstract class Personatge extends Tabler{
            }
            return exit;
        }
-       public int RandomizEnemic(){
+        public int RandomizEnemic(){
             int enemic;
             int randomizer = (int)(Math.random() * 100);
             if(randomizer < 33){
@@ -369,7 +149,6 @@ public abstract class Personatge extends Tabler{
             }
             return enemic;
         }
-		
         public void PerdoBatalla(){
                 if(getMonedes() < 1){
                         System.out.println("Monedes actuals: " + getMonedes());
@@ -382,55 +161,18 @@ public abstract class Personatge extends Tabler{
                         System.out.println("Perds una moneda");
                         setMonedes(getMonedes() - 1);
                 }
+        }	
+        public void guanyoBatalla(){
+            monedes = monedes++;
         }
-		
-        public void GuanyoBatalla(){
-                int [] posicio = super.getPosicioPersonatge();
-                int [][] tauler = super.getTauler();
-                int res = super.getRES();
-                setMonedes(getMonedes() + 1);
-                tauler[posicio[0]][posicio[1]] = res;
-                super.setTauler(tauler);
-        }
-        
         public int generarPersonatge() {
 		int personatge;
 		personatge = (int) (Math.random()*(3) + 1);
 		return personatge;
         }
-        
-        public int sortida(){
-        int[][] tauler = super.getTauler();
-           final int SORTIDA = super.getSORTIDA();
-           int [] posicio = super.getPosicioPersonatge();
-           int monedes = getMonedes();
-           boolean clau = isClau();
-           int guanyar=-1;
-           if(tauler[posicio[0]][posicio[1]] == SORTIDA){
-               System.out.println("Estas en la sortida.");
-               if(monedes>=5 && clau==true){
-                   System.out.println("Has guanyat!");
-                   guanyar = 1;
-               }else{
-                   if(monedes<5){
-                       System.out.println("No pots acabar el joc encara. Et falten monedes");
-                   }else if(clau==false){
-                       System.out.println("No pots acabar el joc encara. Has de trovar la clau");
-                   }
-                   System.out.println("Tornes a l'inici.");
-                   guanyar = 0;
-                   posicio[0]=0;
-                   posicio[1]=0;
-                   super.setPosicioPersonatge(posicio);
-               }
-           }
-           return guanyar;
-    }
-        
         public void passarDades(int vides, int monedes, boolean clau, boolean actiu){
             this.setVides(vides);
             this.setMonedes(monedes);
             this.setClau(clau);
-            this.setActiu(actiu);
         }
 }
