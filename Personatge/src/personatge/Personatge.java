@@ -154,16 +154,16 @@ public abstract class Personatge{
                         System.out.println("Monedes actuals: " + getMonedes());
                         System.out.println("Perds una vida");
                         System.out.println("Vides actuals: " + getVides());
-                        setVides(getVides() - 1);
+                        this.vides--;
                 }
                 else{
                         System.out.println("Monedes actuals: " + getMonedes());
                         System.out.println("Perds una moneda");
-                        setMonedes(getMonedes() - 1);
+                        this.monedes--;
                 }
         }	
         public void guanyoBatalla(){
-            monedes = monedes++;
+            monedes++;
         }
         public int generarPersonatge() {
 		int personatge;
