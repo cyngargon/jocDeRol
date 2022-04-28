@@ -1,0 +1,40 @@
+/****************************CODIS PER COLORS******************************/
+	public static final String RESET = "\u001B[0m";
+	public static final String ROJO = "\u001B[31m";
+	public static final String AZUL = "\u001B[34m";
+	public static final String AMARILLO = "\u001B[33m";
+/**************************************************************************/
+
+
+/*********************FUNCIO MOSTRAR TAULER****************************/
+
+// Canviar color jugador(x) a vermell
+System.out.println("[" + AZUL + "x"+ RESET + "]");
+// Canviar color salida a vermell
+System.out.println("[" + AZUL + "SALIDA" + RESET + "]");
+/**********************************************************************/
+
+
+/*********************FUNCIO MOSTRAR POSICIO***************************/
+
+// System.out.println("Estas en la posición: " + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
+// Canviar a:
+System.out.println("Estas en la posició: " + ROJO + "[0,0]" + RESET);
+/**********************************************************************/
+
+
+/*********************FUNCIO MOSTRAR MONEDES***************************/
+
+//System.out.println("Tens " + getPersonatge().getMonedes() + " monedes.");
+//Canviar a:
+System.out.println("Tens: " + AMARILLO + "5 monedes." + RESET);
+/**********************************************************************/
+
+
+/*********************FUNCIO MOSTRAR VIDES*****************************/
+
+//System.out.println("Tens " + getPersonatge().getVides() + " vides.");
+//Canviar a:
+System.out.println("Tens: " + ROJO + "3 vides." + RESET);
+/**********************************************************************/
+
