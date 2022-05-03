@@ -246,6 +246,7 @@ public class Tabler{
                     break;
                 default:
                     System.out.println("Opción incorrecta.");
+					exit =0;
             }
             return exit;
 	

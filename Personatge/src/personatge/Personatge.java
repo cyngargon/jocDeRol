@@ -99,11 +99,11 @@ public abstract class Personatge{
         }
         public void recollir(int casella){
 		switch (casella){
-			case 2:
+			case 3:
 				monedes++;
 				System.out.println("S'ha recollit una moneda.");
 				break;
-			case 3:
+			case 4:
 				clau = true;
 				System.out.println("S'ha recollit la clau. Ara tens la clau.");
 				break;
