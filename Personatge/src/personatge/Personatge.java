@@ -12,8 +12,9 @@ public abstract class Personatge{
             this.vides = 3;
             this.monedes = 5;
             this.clau = false;
+			this.posicio=new int [] {0,0};
         }
-        public Personatge(int vides, int monedes, boolean clau) {
+        public Personatge(int vides, int monedes, boolean clau, int [] posicio) {
             this();
             this.vides = vides;
             this.monedes = monedes;
@@ -57,6 +58,7 @@ public abstract class Personatge{
 	public abstract String missatgePosicio();
         public abstract int batalla();
         public void moure(char direccio, boolean correcte) {
+			int [] novaposicio = new int[2];
             direccio = Character.toUpperCase(direccio);
             switch (direccio){
                 case 'W':
@@ -67,19 +69,19 @@ public abstract class Personatge{
                     break;
                 case 'S':
                     if(correcte==true){
-                        getPosicio()[0]++;
+						getPosicio()[0]++;
                         setPosicio(posicio);
                     }
                     break;
                 case 'A':
                     if(correcte==true){
-                        getPosicio()[1]--;
+						getPosicio()[1]--;
                         setPosicio(posicio);
                     }
                     break;
                 case 'D':
                     if(correcte==true){
-                        getPosicio()[1]++;
+						getPosicio()[1]++;
                         setPosicio(posicio);
                     }
                     break;

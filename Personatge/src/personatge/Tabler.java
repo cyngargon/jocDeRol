@@ -80,7 +80,7 @@ public class Tabler{
             tauler[filaSortida][columnaSortida] = TFicha.SALIDA.ordinal();
 	}
 	public void mostrarTauler(){
-            int [] posicioPersonatge = personatge.getPosicio();
+            int [] posicioPersonatge=personatge.getPosicio();
             for (int i = 0; i < tauler.length; i++) {
                     for (int j = 0; j < tauler[0].length; j++) {
                             if (i == posicioPersonatge[0] && j == posicioPersonatge[1]) {
@@ -126,7 +126,7 @@ public class Tabler{
            Personatge personatge1 = null;
            int tp;
            
-           if(tipus.isEmpty()){
+           if(!tipus.isPresent()){
                tp = (int) (Math.random()*3);
            }else{
                tp = tipus.get();
@@ -188,8 +188,7 @@ public class Tabler{
                                             "\nR: Recoger" +
                                             "\nC: Cambiar personaje" +
                                             "\nS: Salir del juego");
-                        respuesta = Teclat.llegirChar();
-                        respuesta = Character.toUpperCase(respuesta);
+                        respuesta = Character.toUpperCase(Teclat.llegirChar());
                         //Comprovem que la resposta sigui valida
                         exit = checkOpcionesMenu(fixa, respuesta);
                         break;
@@ -308,13 +307,12 @@ public class Tabler{
             do{
                 this.getPersonatge().missatgePosicio();
                 this.getPersonatge().mostrarDireccio();
-                direccio[i] = Teclat.llegirChar();
-                Character.toUpperCase(direccio[i]);
+                direccio[i] = Character.toUpperCase(Teclat.llegirChar());
                 errorDireccio = checkDireccio(direccio[i]);
                 correcte = checkMoviment(direccio[i]);
+				this.getPersonatge().moure(direccio[i], correcte);
                 i++;
             }while(errorDireccio==true && i<direccio.length);
-            this.getPersonatge().moure(direccio[i], correcte);
            }
         }
         public boolean checkDireccio(char respuesta){

@@ -8,7 +8,7 @@ public class Main {
             Tabler tabler = new Tabler();
             
             tabler.generarPersonatge(Optional.empty());
-            tabler.dimensioTauler();
+			tabler.dimensioTauler();
             tabler.generarTauler();
             do{
                 tabler.mostrarTauler();
