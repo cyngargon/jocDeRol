@@ -1,15 +1,21 @@
 package personatge;
 
-public abstract class Personatge extends Tabler{
+public abstract class Personatge{
     //Attributes
 	private int vides;
 	private int monedes;
         private boolean clau;
-	
+        private int [] posicio;
+        
     //Constructors
         public Personatge(){
+            this.vides = 3;
+            this.monedes = 5;
+            this.clau = false;
+			this.posicio=new int [] {0,0};
         }
-        public Personatge(int vides, int monedes, boolean clau) {
+        public Personatge(int vides, int monedes, boolean clau, int [] posicio) {
+            this();
             this.vides = vides;
             this.monedes = monedes;
             this.clau = clau;
@@ -40,149 +46,135 @@ public abstract class Personatge extends Tabler{
             this.clau = clau;
         }
         
+        public int[] getPosicio() {
+            return posicio;
+        }
+
+        public void setPosicio(int[] posicio) {
+            this.posicio = posicio;
+        }
         
     //Methods
 	public abstract String missatgePosicio();
-        public abstract void moure(char [] direccio);
-        public abstract void batalla();
-        public void mostrarDireccio(){
-        System.out.println(missatgePosicio());
-        System.out.println("W -> Arriba"
-              + "\nS -> Abajo"
-              + "\nD -> Derecha"
-              + "\nA -> Izquierda");
-    }
-        public boolean checkDireccio(char [] direccio){
-            boolean error;
-            switch (direccio[0]){
-                case 'W': case 'S': case 'D': case 'A':
-                    error = true;
-                    break;
-                default:
-                    error = false;
-            }
-            return error;
-        }
-        public void cambiarPersonatge(){
-            
-        }
-        public void sortir(){
-            
-        }
-        public void recollir(){
-            
-        }
-        
-        
-        /**
-         * Mostra el menú depenent de la casella en la que es trovi el personatge
-         */
-	public void mostrarMenu() {
-            int [] posicio = super.getPosicioPersonatge();
-            int [][] tauler = super.getTauler();
-            int numero = tauler[posicio[0]][posicio[1]];
-            char respuesta;
-            
-            switch (numero){
-                case 0: //Res
-                    System.out.println("M: Moverse" + 
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    checkOpcionesMenu(numero, respuesta);
-                    break;
-                case 1: //Enemic
-                    System.out.println("B: Batalla" +
-                                        "\nM: Moverse" +
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    checkOpcionesMenu(numero, respuesta);
-                    break;
-                case 3: case 2: //Moneda i clau
-                    System.out.println("M: Moverse" + 
-                                        "\nR: Recoger" +
-                                        "\nC: Cambiar personaje" +
-                                        "\nS: Salir del juego");
-                    respuesta = Teclat.llegirChar();
-                    Character.toUpperCase(respuesta);
-                    //Comprovem que la resposta sigui valida
-                    checkOpcionesMenu(numero, respuesta);
-                    break;
-                default:
-                    System.out.println("ERROR!");
-            }
-	}
-        /**
-         * Comprovar que les respostes siguin valides
-         * @param casella
-         * @param respuesta 
-         */
-	public void checkOpcionesMenu(int casella, char respuesta) {
-            switch (respuesta){
-                case 'B':
-                    if(casella == 2||casella == 3||casella == 0){
-                        System.out.println("No hay ningun enemigo.");
-                    }else{
-                        batalla();
+        public abstract int batalla();
+        public void moure(char direccio, boolean correcte) {
+			int [] novaposicio = new int[2];
+            direccio = Character.toUpperCase(direccio);
+            switch (direccio){
+                case 'W':
+                    if(correcte==true){
+                        getPosicio()[0]--;
+                        setPosicio(posicio);
                     }
-                case 'R':
-                    if(casella == 0 || casella == 1){
-                        System.out.println("No hay nada que recoger");
-                    }else{
-                        recollir();
-                    }
-                    break;
-                case 'M':
-                    mostrarDireccio();
-                    break;
-                case 'C':   
-                    cambiarPersonatge();
                     break;
                 case 'S':
-                    sortir();
+                    if(correcte==true){
+						getPosicio()[0]++;
+                        setPosicio(posicio);
+                    }
                     break;
-                default:
-                    System.out.println("Opción incorrecta.");
+                case 'A':
+                    if(correcte==true){
+						getPosicio()[1]--;
+                        setPosicio(posicio);
+                    }
+                    break;
+                case 'D':
+                    if(correcte==true){
+						getPosicio()[1]++;
+                        setPosicio(posicio);
+                    }
+                    break;
             }
-	}
-        /**
-         * Comprovar que es pot moure cap a aquella direccio
-         * @param direccio
-         */
-        public void checkMoviment(char direccio){
-            //si no es choca
-            //total - posicion < al length de la direccio
-            int [] posicio = super.getPosicioPersonatge();
-            int [][] tauler = super.getTauler();
-            
-            switch(direccio){
-                case 'W':
-                    break;
+            if(correcte==false){
+                System.out.println("ERROR! No te puedes mover para alla.");
             }
         }
-        
-        /**
-        * Mostra el missatge de la posicio i chequeja de que ho hagi introduit bé
-        * @param direccio 
-        */
-       public void missatgeMoure(char [] direccio) {
-           boolean errorDireccio;
-
-           for (int i = 0; i < direccio.length; i++) {
-               do{
-                   missatgePosicio();
-                   mostrarDireccio();
-                   direccio[i] = Teclat.llegirChar();
-                   Character.toUpperCase(direccio[i]);
-                   errorDireccio = checkDireccio(direccio);
-               }while(errorDireccio==true);
+        public void mostrarDireccio(){
+            System.out.println(missatgePosicio());
+            System.out.println("W -> Arriba"
+                  + "\nS -> Abajo"
+                  + "\nD -> Derecha"
+                  + "\nA -> Izquierda");
+        }
+        public void recollir(int casella){
+		switch (casella){
+			case 3:
+				monedes++;
+				System.out.println("S'ha recollit una moneda.");
+				break;
+			case 4:
+				clau = true;
+				System.out.println("S'ha recollit la clau. Ara tens la clau.");
+				break;
+			default:
+				System.out.println("ERROR");
+		}
+        }
+        public int salir(){
+           char respuesta;
+           int exit;
+           do{
+            System.out.println("Seguro que quieres salir del juego? Respuesta S/N");
+            respuesta = Teclat.llegirChar();
+            exit = confirmacion(respuesta);
+           }while(exit == -1);
+           return exit;
+        }
+        public int confirmacion(char respuesta){
+           int exit;
+           respuesta = Character.toUpperCase(respuesta);
+           switch(respuesta){
+               case 'S':
+                   exit = 1;
+                   break;
+               case 'N':
+                   exit = 0;
+                   break;
+               default:
+                   System.out.println("ERROR! Introduce una respuesta valida");
+                   exit = -1;
            }
-           moure(direccio);
+           return exit;
        }
-        
+        public int RandomizEnemic(){
+            int enemic;
+            int randomizer = (int)(Math.random() * 100);
+            if(randomizer < 33){
+                    enemic = 1; //Enemic Guerrer
+            }
+            else if (randomizer < 66){
+                    enemic = 2; //Enemic Sacerdot
+            }
+            else{
+                    enemic = 3; //Enemic Mag
+            }
+            return enemic;
+        }
+        public void PerdoBatalla(){
+                if(getMonedes() < 1){
+                        System.out.println("Monedes actuals: " + getMonedes());
+                        System.out.println("Perds una vida");
+                        System.out.println("Vides actuals: " + getVides());
+                        this.vides--;
+                }
+                else{
+                        System.out.println("Monedes actuals: " + getMonedes());
+                        System.out.println("Perds una moneda");
+                        this.monedes--;
+                }
+        }	
+        public void guanyoBatalla(){
+            monedes++;
+        }
+        public int generarPersonatge() {
+		int personatge;
+		personatge = (int) (Math.random()*(3) + 1);
+		return personatge;
+        }
+        public void passarDades(int vides, int monedes, boolean clau, boolean actiu){
+            this.setVides(vides);
+            this.setMonedes(monedes);
+            this.setClau(clau);
+        }
 }
