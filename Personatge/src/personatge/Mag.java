@@ -8,9 +8,22 @@ public class Mag extends Personatge{
     
     @Override
     public String missatgePosicio() {
-            return "Et pots moures d'1 en 1 | de 2 en 2 | de 3 en 3";
+            return "Et pots moure d'1 en 1 | de 2 en 2 | de 3 en 3";
     }
 
+    @Override
+    public char Canvi() {
+        char resposta;
+        System.out.println("El teu personatge és un Mag. "
+                + "Pots canviar a:\n G.Guerrer\n M.Sacerdot"
+                + "\nCost per canviar de personatge: 1 moneda");
+        
+        System.out.print("Selecciona: ");
+        resposta = Character.toUpperCase(Teclat.llegirChar());
+        
+        return resposta;
+    }
+    
     @Override
     public int batalla() {
         int enemic = RandomizEnemic(), resultatBatalla=-1;
@@ -52,7 +65,7 @@ public class Mag extends Personatge{
             do{
                 if(direccio[a]!= direccio[0]){
                     error=1;
-                    System.out.println("ERROR! Solo te puedes mover para una direccion. ");
+                    System.out.println("ERROR! Només et pots moure en una direcció. ");
                 }else{
                     error=0;
                 }

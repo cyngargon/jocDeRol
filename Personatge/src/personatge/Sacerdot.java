@@ -8,7 +8,20 @@ public class Sacerdot extends Personatge{
     
     @Override
     public String missatgePosicio() {
-            return "Et pots moures d'1 en 1 | de 2 en 2";
+            return "Et pots moure d'1 en 1 | de 2 en 2";
+    }
+    
+    @Override
+    public char Canvi() {
+        char resposta;
+        System.out.println("El teu personatge és un Sacerdot. "
+                + "Pots canviar a:\nG. Guerrer\nM. Mag"
+                + "\nCost per canviar de personatge: 1 moneda");
+        
+        System.out.print("Selecciona: ");
+        resposta = Character.toUpperCase(Teclat.llegirChar());
+        
+        return resposta;
     }
 
     @Override

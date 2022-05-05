@@ -12,7 +12,7 @@ public abstract class Personatge{
             this.vides = 3;
             this.monedes = 5;
             this.clau = false;
-			this.posicio=new int [] {0,0};
+            this.posicio=new int [] {0,0};
         }
         public Personatge(int vides, int monedes, boolean clau, int [] posicio) {
             this();
@@ -55,6 +55,7 @@ public abstract class Personatge{
         }
         
     //Methods
+        public abstract char Canvi();
 	public abstract String missatgePosicio();
         public abstract int batalla();
         public void moure(char direccio, boolean correcte) {
@@ -69,33 +70,33 @@ public abstract class Personatge{
                     break;
                 case 'S':
                     if(correcte==true){
-						getPosicio()[0]++;
+			getPosicio()[0]++;
                         setPosicio(posicio);
                     }
                     break;
                 case 'A':
                     if(correcte==true){
-						getPosicio()[1]--;
+                        getPosicio()[1]--;
                         setPosicio(posicio);
                     }
                     break;
                 case 'D':
                     if(correcte==true){
-						getPosicio()[1]++;
+			getPosicio()[1]++;
                         setPosicio(posicio);
                     }
                     break;
             }
             if(correcte==false){
-                System.out.println("ERROR! No te puedes mover para alla.");
+                System.out.println("ERROR! No et pots moure cap allà.");
             }
         }
         public void mostrarDireccio(){
             System.out.println(missatgePosicio());
-            System.out.println("W -> Arriba"
-                  + "\nS -> Abajo"
-                  + "\nD -> Derecha"
-                  + "\nA -> Izquierda");
+            System.out.println("W -> Amunt"
+                  + "\nS -> aball"
+                  + "\nD -> Dreta"
+                  + "\nA -> Esquerra");
         }
         public void recollir(int casella){
 		switch (casella){
@@ -115,7 +116,7 @@ public abstract class Personatge{
            char respuesta;
            int exit;
            do{
-            System.out.println("Seguro que quieres salir del juego? Respuesta S/N");
+            System.out.print("Segur que vols sortir del joc? Resposta (S/N): ");
             respuesta = Teclat.llegirChar();
             exit = confirmacion(respuesta);
            }while(exit == -1);
@@ -132,7 +133,7 @@ public abstract class Personatge{
                    exit = 0;
                    break;
                default:
-                   System.out.println("ERROR! Introduce una respuesta valida");
+                   System.out.println("ERROR! Introdueix una resposta vàlida");
                    exit = -1;
            }
            return exit;
@@ -169,12 +170,13 @@ public abstract class Personatge{
         }
         public int generarPersonatge() {
 		int personatge;
-		personatge = (int) (Math.random()*(3) + 1);
+		personatge = (int)(Math.random()*(3) + 1);
 		return personatge;
         }
-        public void passarDades(int vides, int monedes, boolean clau, boolean actiu){
+        public void passarDades(int vides, int monedes, boolean clau){
             this.setVides(vides);
             this.setMonedes(monedes);
             this.setClau(clau);
         }
+        
 }

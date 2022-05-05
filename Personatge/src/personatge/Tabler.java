@@ -42,9 +42,9 @@ public class Tabler{
             boolean checkDimension;
             int [][] tauler1;
             do{
-                    System.out.print("Introduce las columnas del mapa: ");
+                    System.out.print("Introdueix les columnas del mapa (5-20): ");
                     dimensions[0] = Teclat.llegirInt();
-                    System.out.print("Introduce las filas del mapa: ");
+                    System.out.print("Introdueix las files del mapa (5-20): ");
                     dimensions[1] = Teclat.llegirInt();
                     checkDimension = checkDimensions(dimensions);
             }while(checkDimension == false);
@@ -54,10 +54,10 @@ public class Tabler{
         public boolean checkDimensions(int[] dimensions){
             boolean checkDimension;
             if (dimensions[0] < 5 || dimensions[0] > 20 || dimensions[1] < 5 || dimensions[1] > 20) {
-				System.out.println("No se pueden crear este número de filas i columnas. Intentalo de nuevo...");
+				System.out.println("No es pot crear un mapa amb aquesta mida de files i columnes. Intenta-ho de nou...");
 				checkDimension = false;
 			} else {
-				System.out.println("Creando mapa...");
+				System.out.println("Creant mapa...");
 				checkDimension = true;
 			}
             return checkDimension;
@@ -86,7 +86,7 @@ public class Tabler{
                             if (i == posicioPersonatge[0] && j == posicioPersonatge[1]) {
                                     System.out.print("[x]");
                             } else if (i == tauler.length - 1 && j == tauler[0].length - 1) {
-                                    System.out.print("[SALIDA]");
+                                    System.out.print("[SORTIDA]");
                             }
                             else {
                                     System.out.print("[ ]");
@@ -95,10 +95,19 @@ public class Tabler{
                     System.out.println();
 		}
 	}
+        public void mostrarPersonatge(){
+            if(personatge instanceof Guerrer){
+                System.out.println("El teu personatge és un Guerrer");
+            }else if(personatge instanceof Sacerdot){
+                System.out.println("El teu personatge és un Sacerdot");
+            }else if(personatge instanceof Mag){
+                System.out.println("El teu personatge és un Mag");
+            }
+        }
         public void mostrarPosicio(){
             final int ZERO = 0, U = 1;
             int [] posicioPersonatge = personatge.getPosicio();
-            System.out.println("Estas en la posición: " + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
+            System.out.println("Estas a la posició: " + posicioPersonatge[ZERO] + "," + posicioPersonatge[U]);
         }
         public void mostrarClau(){
             if(getPersonatge().isClau()==true){
@@ -115,6 +124,8 @@ public class Tabler{
         }
         public void mostrarDatos(){
             mostrarPosicio();
+            //Personatge
+            mostrarPersonatge();
             //Monedes
             mostrarMonedes();
             //Clau
@@ -140,7 +151,7 @@ public class Tabler{
                    personatge1 = new Sacerdot();
                    break;
                case 2:
-                   personatge1 = new Sacerdot();
+                   personatge1 = new Mag();
                    break;
            }
            this.personatge = personatge1;
@@ -151,44 +162,52 @@ public class Tabler{
                 int fixa = getTauler()[getPersonatge().getPosicio()[0]][getPersonatge().getPosicio()[1]];
                 switch (fixa){
                     case 1: //Res
-                        System.out.println("No hay nada en tu casilla. Elige entre estas opciones: ");
-                        System.out.println("M: Moverse" + 
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
+                        System.out.println("La sala està buida. Escull la teva acció: ");
+                        System.out.print("M: Moure's" + 
+                                            "\nC: Canviar personatge" +
+                                            "\nS: Sortir del joc" + 
+                                            "\nSeleciona: ");
                         respuesta = Teclat.llegirChar();
                         respuesta = Character.toUpperCase(respuesta);
+                        System.out.println("");
                         //Comprovem que la resposta sigui valida
                         exit = checkOpcionesMenu(fixa, respuesta);
                         break;
                     case 2: //Enemic
-                        System.out.println("Te has encontrado con un enemigo. Elige entre estas opciones: ");
-                        System.out.println("B: Batalla" +
-                                            "\nM: Moverse" +
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
+                        System.out.println("Has trobat un enemic! Escull la teva acció: ");
+                        System.out.print("B: Batalla" +
+                                            "\nM: Moure's" +
+                                            "\nC: Canviar personatge" +
+                                            "\nS: Sortir del joc" + 
+                                            "\nSeleciona: ");
                         respuesta = Teclat.llegirChar();
                         respuesta = Character.toUpperCase(respuesta);
+                        System.out.println("");
                         //Comprovem que la resposta sigui valida
                         exit = checkOpcionesMenu(fixa, respuesta);
                         break;
                     case 3: //MONEDA
-                        System.out.println("Te has encontrado con una moneda. Elige entre estas opciones: ");
-                        System.out.println("M: Moverse" + 
-                                            "\nR: Recoger" +
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
+                        System.out.println("Has trobat una moneda! Escull la teva acció: ");
+                        System.out.print("M: oure's" + 
+                                            "\nR: Recollir" +
+                                            "\nC: Canviar personatge" +
+                                            "\nS: Sortir del joc" + 
+                                            "\nSeleciona: ");
                         respuesta = Teclat.llegirChar();
                         respuesta = Character.toUpperCase(respuesta);
+                        System.out.println("");
                         //Comprovem que la resposta sigui valida
                         exit = checkOpcionesMenu(fixa, respuesta);
                         break;
                     case 4: //CLAU
-                        System.out.println("Te has encontrado con una llave. Elige entre estas opciones: ");
-                        System.out.println("M: Moverse" + 
-                                            "\nR: Recoger" +
-                                            "\nC: Cambiar personaje" +
-                                            "\nS: Salir del juego");
+                        System.out.println("Has trobat una clau! Escull la teva acció: ");
+                        System.out.print("M: Moure's" + 
+                                            "\nR: Recollir" +
+                                            "\nC: Canviar personatge" +
+                                            "\nS: Sortir del joc" + 
+                                            "\nSeleciona: ");
                         respuesta = Character.toUpperCase(Teclat.llegirChar());
+                        System.out.println("");
                         //Comprovem que la resposta sigui valida
                         exit = checkOpcionesMenu(fixa, respuesta);
                         break;
@@ -202,9 +221,7 @@ public class Tabler{
             
             switch (respuesta){
                 case 'B':
-                    if(casella == TFicha.LLAVE.ordinal()||casella == TFicha.MONEDA.ordinal()||casella == TFicha.NADA.ordinal() || casella==TFicha.SALIDA.ordinal()){
-                        System.out.println("No hay ningun enemigo.");
-                    }else{
+                    if(!(casella == TFicha.LLAVE.ordinal()||casella == TFicha.MONEDA.ordinal()||casella == TFicha.NADA.ordinal() || casella==TFicha.SALIDA.ordinal())){
                         resultatBatalla = getPersonatge().batalla();
                         switch(resultatBatalla){
                             case 0:
@@ -218,15 +235,17 @@ public class Tabler{
                             default:
                                 System.out.println("Error");
                         }
-                        exit=0;
+                    }else{
+                        System.out.println("Opció incorrecte.");
                     }
+                    exit=0;
                 case 'R':
                     if(casella == TFicha.ENEMIGO.ordinal() || casella == TFicha.NADA.ordinal() || casella == TFicha.SALIDA.ordinal()){
-                        System.out.println("No hay nada que recoger");
+                        System.out.println("Opció incorrecte.");
                     }else{
                         recollir(casella);
-                        exit=0;
                     }
+                    exit = 0;
                     break;
                 case 'M':
                     if(personatge instanceof Guerrer){
@@ -238,15 +257,16 @@ public class Tabler{
                     }
                     exit=0;
                     break;
-                case 'C':  
-                    exit = -2;
+                case 'C': 
+                    canviarPersonatge();
+                    exit = 0;
                     break;
                 case 'S':
                     exit = getPersonatge().salir();
                     break;
                 default:
-                    System.out.println("Opción incorrecta.");
-					exit =0;
+                    System.out.println("Opció incorrecte.");
+                    exit =0;
             }
             return exit;
 	
@@ -295,7 +315,7 @@ public class Tabler{
                     System.out.println("Error del programa.");
             }
             if(correcte==false){
-                System.out.println("Compte! Et chocaràs!");
+                System.out.println("Compte! Xocaràs!");
             }
             return correcte;
         }
@@ -308,6 +328,7 @@ public class Tabler{
             do{
                 this.getPersonatge().missatgePosicio();
                 this.getPersonatge().mostrarDireccio();
+                System.out.print("Selecciona: ");
                 direccio[i] = Character.toUpperCase(Teclat.llegirChar());
                 errorDireccio = checkDireccio(direccio[i]);
                 correcte = checkMoviment(direccio[i]);
@@ -325,7 +346,7 @@ public class Tabler{
                     break;
                 default:
                     error = true;
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opció incorrecte.");
             }
             return error;
         }
@@ -333,10 +354,73 @@ public class Tabler{
                 getPersonatge().guanyoBatalla();
                 tauler[this.getPersonatge().getPosicio()[0]][this.getPersonatge().getPosicio()[1]] = TFicha.NADA.ordinal();
         }
+        
+        public void canviarPersonatge(){
+            Personatge personatgeC = null;
+            int canvi = 1, monedes = getPersonatge().getMonedes(), vides = getPersonatge().getVides();
+            boolean clau = getPersonatge().isClau();
+            if(personatge instanceof Guerrer){
+                switch(this.getPersonatge().Canvi()){
+                    case 'S':
+                        personatgeC = new Sacerdot();
+                        break;
+                    case 'M':
+                        personatgeC = new Mag();
+                        break;
+                    default:
+                        System.out.println("Opció incorrecte, no es canvia el personatge.");
+                        canvi = -1;
+                        break;
+                }
+            }else if(personatge instanceof Sacerdot){
+                switch(this.getPersonatge().Canvi()){
+                    case 'G':
+                        personatgeC = new Guerrer();
+                        break;
+                    case 'M':
+                        personatgeC = new Mag();
+                        break;
+                    default:
+                        System.out.println("Opció incorrecte, no es canvia el personatge");
+                        canvi = -1;
+                        break;
+                }
+            }else if(personatge instanceof Mag){
+                switch(this.getPersonatge().Canvi()){
+                    case 'G':
+                        personatgeC = new Guerrer();
+                        break;
+                    case 'S':
+                        personatgeC = new Sacerdot();
+                        break;
+                    default:
+                        System.out.println("Opció incorrecte, no es canvia el personatge");
+                        canvi = -1;
+                        break;
+                }
+            }
+            
+            if(canvi > 0){
+                if(getPersonatge().getMonedes()>0){
+                    this.personatge = personatgeC;
+                    editaItemsCanvi(monedes, vides, clau);
+                }
+                else{
+                    System.out.println("No tens prou monedes, no es canviarà el personatge");
+                }
+            }
+        }
+        
+        public void editaItemsCanvi(int monedes, int vides, boolean clau){
+            getPersonatge().setMonedes(monedes - 1);
+            getPersonatge().setVides(vides);
+            getPersonatge().setClau(clau);
+        }
+        
         public int sortida(){
            int guanyar=-1;
            if(tauler[getPersonatge().getPosicio()[0]][getPersonatge().getPosicio()[1]] == TFicha.SALIDA.ordinal()){
-               System.out.println("Estas en la sortida.");
+               System.out.println("Estas a la sortida.");
                if(getPersonatge().getMonedes()>=5 && getPersonatge().isClau()==true){
                    System.out.println("Has guanyat!");
                    guanyar = 1;
