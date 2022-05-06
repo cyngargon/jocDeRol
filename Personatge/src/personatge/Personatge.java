@@ -94,7 +94,7 @@ public abstract class Personatge{
         public void mostrarDireccio(){
             System.out.println(missatgePosicio());
             System.out.println("W -> Amunt"
-                  + "\nS -> aball"
+                  + "\nS -> Avall"
                   + "\nD -> Dreta"
                   + "\nA -> Esquerra");
         }

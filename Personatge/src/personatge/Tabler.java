@@ -67,7 +67,7 @@ public class Tabler{
             //RES, ENEMIC I MONEDA
             for (int[] tauler1 : tauler) {
                 for (int j = 0; j < tauler[0].length; j++) {
-                    tauler1[j] = (int)(1 + (Math.random()*4));
+                    tauler1[j] = (int)(1 + (Math.random()*3));
                 }
             }
             //CLAU
@@ -88,13 +88,41 @@ public class Tabler{
                             } else if (i == tauler.length - 1 && j == tauler[0].length - 1) {
                                     System.out.print("[SORTIDA]");
                             }
-                            else {
+                            else{
                                     System.out.print("[ ]");
                             }
                     }
                     System.out.println();
+			}
 		}
-	}
+	
+		public void mostrarTaulerDev(){
+            int [] posicioPersonatge=personatge.getPosicio();
+            for (int i = 0; i < tauler.length; i++) {
+                    for (int j = 0; j < tauler[0].length; j++) {
+                            if (i == posicioPersonatge[0] && j == posicioPersonatge[1]) {
+                                    System.out.print("[x]");
+                            } 
+							else if (i == tauler.length - 1 && j == tauler[0].length - 1) {
+                                    System.out.print("[SORTIDA]");
+                            }
+                            else if(tauler[i][j] == 2){
+                                    System.out.print("[E]");
+                            }
+							else if(tauler[i][j] == 3){
+                                    System.out.print("[M]");
+                            }
+							else if(tauler[i][j] == 4){
+                                    System.out.print("[C]");
+                            }
+							else{
+								System.out.print("[ ]");
+							}
+                    }
+                    System.out.println();
+			}
+		}
+
         public void mostrarPersonatge(){
             if(personatge instanceof Guerrer){
                 System.out.println("El teu personatge és un Guerrer");
@@ -188,7 +216,7 @@ public class Tabler{
                         break;
                     case 3: //MONEDA
                         System.out.println("Has trobat una moneda! Escull la teva acció: ");
-                        System.out.print("M: oure's" + 
+                        System.out.print("M: Moure's" + 
                                             "\nR: Recollir" +
                                             "\nC: Canviar personatge" +
                                             "\nS: Sortir del joc" + 
@@ -264,6 +292,10 @@ public class Tabler{
                 case 'S':
                     exit = getPersonatge().salir();
                     break;
+				case 'K':
+					mostrarTaulerDev();
+					exit = 0;
+					break;
                 default:
                     System.out.println("Opció incorrecte.");
                     exit =0;
@@ -359,6 +391,7 @@ public class Tabler{
             Personatge personatgeC = null;
             int canvi = 1, monedes = getPersonatge().getMonedes(), vides = getPersonatge().getVides();
             boolean clau = getPersonatge().isClau();
+			int [] posicio = new int [] {getPersonatge().getPosicio()[0], getPersonatge().getPosicio()[1]};
             if(personatge instanceof Guerrer){
                 switch(this.getPersonatge().Canvi()){
                     case 'S':
@@ -403,7 +436,7 @@ public class Tabler{
             if(canvi > 0){
                 if(getPersonatge().getMonedes()>0){
                     this.personatge = personatgeC;
-                    editaItemsCanvi(monedes, vides, clau);
+                    editaItemsCanvi(monedes, vides, clau, posicio[0], posicio[1]);
                 }
                 else{
                     System.out.println("No tens prou monedes, no es canviarà el personatge");
@@ -411,10 +444,12 @@ public class Tabler{
             }
         }
         
-        public void editaItemsCanvi(int monedes, int vides, boolean clau){
-            getPersonatge().setMonedes(monedes - 1);
+        public void editaItemsCanvi(int monedes, int vides, boolean clau, int posicio1, int posicio2){
+            int [] posicio = new int[]{posicio1, posicio2}; 
+			getPersonatge().setMonedes(monedes - 1);
             getPersonatge().setVides(vides);
             getPersonatge().setClau(clau);
+			getPersonatge().setPosicio(posicio);
         }
         
         public int sortida(){
@@ -425,11 +460,13 @@ public class Tabler{
                    System.out.println("Has guanyat!");
                    guanyar = 1;
                }else{
-                   if(getPersonatge().getMonedes()<5){
+                   if(getPersonatge().getMonedes()<5 && getPersonatge().isClau()==false){
+                       System.out.println("No pots acabar el joc encara. Et falten monedes");
+                   }else if(getPersonatge().getMonedes()<5){
                        System.out.println("No pots acabar el joc encara. Et falten monedes");
                    }else if(getPersonatge().isClau()==false){
-                       System.out.println("No pots acabar el joc encara. Has de trovar la clau");
-                   }
+					   System.out.println("No pots acabar el joc encara. Has de trovar la clau");
+				   }
                    System.out.println("Tornes a l'inici.");
                    guanyar = 0;
                    getPersonatge().getPosicio()[0]=0;
