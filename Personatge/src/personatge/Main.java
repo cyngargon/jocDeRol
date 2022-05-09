@@ -1,14 +1,17 @@
 package personatge;
 import java.util.Optional;
-
+/**
+ * Contingut Programa
+ * @author MarcSerra, CynthiaGarcia, PolCrespo 
+ */
 public class Main {
         
 	public static void main(String[] args) {
             int exit, guanyar;
 			System.out.println("JOC DE ROL 1.0\n");
-			System.out.println("Objectiu del joc: Arriba a SORTIDA amb la clau i 10 monedes.");
+			System.out.println("Objectiu del joc: Arriba a SORTIDA (S) amb la clau i 10 monedes.");
 			System.out.println("Mecàniques:\n"
-								+ "- Hi ha una clau amagada al mapa, troba-la!!" 
+								+ "- Hi ha una clau amagada al mapa, troba-la!!\n" 
 								+ "- Tens 3 opcions de personatge: Sacerdot, Guerrer i Mag.\n"
 								+ "- Els enemics també poden ser sacerdots, guerrers o mags.\n"
 								+ "- Hauràs de descobrir quina classe guanya a cada una d'elles, prova sort!\n"
@@ -29,8 +32,7 @@ public class Main {
                 exit = tabler.menu();
 				guanyar = tabler.sortida();
                 System.out.println("\n\n\n");
-            }while(exit==0 || guanyar != 1);
-	}   
-        
+            }while(exit == 0 && guanyar != 1);
+	}    
 }
 
