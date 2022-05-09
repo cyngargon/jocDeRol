@@ -5,12 +5,7 @@ public class Sacerdot extends Personatge{
     public Sacerdot(){
         
     }
-    
-    @Override
-    public String missatgePosicio() {
-            return "Et pots moure d'1 en 1 | de 2 en 2";
-    }
-    
+       
     @Override
     public char Canvi() {
         char resposta;
@@ -26,23 +21,29 @@ public class Sacerdot extends Personatge{
 
     @Override
     public int batalla() {
-        int enemic = RandomizEnemic(), resultatBatalla=-1;
-        switch (enemic) {
+		int resultat = -1;
+        int enemic = RandomizEnemic();
+        do{
+			switch (enemic) {
             case 1:
                 //Perdo
                 System.out.println("L'enemic és un Guerrer! Perds la batalla");
-                resultatBatalla = 0;
+				resultat = 1;
+				PerdoBatalla();
                 break;
             case 3:
                 //Guanyo
                 System.out.println("L'enemic és un Mag! Guanyes la batalla");
-                resultatBatalla = 1;
+				resultat = 2;
+				GuanyoBatalla();
                 break;
-            default:
-                batalla();
-                break;
-        }
-        return resultatBatalla;
+			case 2:
+				System.out.println("emp");
+				enemic = RandomizEnemic();
+				break;
+			}
+		}while(resultat == -1);
+		return resultat;
     }
 	
 }

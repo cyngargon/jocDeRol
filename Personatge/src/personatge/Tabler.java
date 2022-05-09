@@ -245,28 +245,21 @@ public class Tabler{
                 return exit;
         }
         public int checkOpcionesMenu(int casella, char respuesta){
-            int exit = -1, resultatBatalla;
+            int exit = -1;
             
             switch (respuesta){
                 case 'B':
                     if(!(casella == TFicha.LLAVE.ordinal()||casella == TFicha.MONEDA.ordinal()||casella == TFicha.NADA.ordinal() || casella==TFicha.SALIDA.ordinal())){
-                        resultatBatalla = getPersonatge().batalla();
-                        switch(resultatBatalla){
-                            case 0:
-                                this.getPersonatge().PerdoBatalla();
-                                break;
-                            case 1:
-                                guanyoBatalla();
-                                break;
-                            case -1:
-                                System.out.println("Has empatado.");
-                            default:
-                                System.out.println("Error");
-                        }
+						
+						if(getPersonatge().batalla() == 2){
+							tauler[this.getPersonatge().getPosicio()[0]][this.getPersonatge().getPosicio()[1]] = TFicha.NADA.ordinal();
+						}
+								
                     }else{
                         System.out.println("Opció incorrecte.");
                     }
                     exit=0;
+					break;
                 case 'R':
                     if(casella == TFicha.ENEMIGO.ordinal() || casella == TFicha.NADA.ordinal() || casella == TFicha.SALIDA.ordinal()){
                         System.out.println("Opció incorrecte.");
@@ -305,33 +298,33 @@ public class Tabler{
             //COLUMNAS A y D
             //tauler[0].length y posicio[0] --> filas 
             //tauler.length y posicio [1] --> columnas
-            int maxLengthVertical = (tauler.length - 1) - posicio[0];
-            int maxLengthHoritzontal = (tauler[0].length - 1) - posicio[1];
+            int maxLengthVertical = tauler.length - 1;
+            int maxLengthHoritzontal = tauler[0].length - 1;
             boolean correcte = true;
             switch(direccio){
                 case 'S':
-                    if(maxLengthVertical>0){
+                    if(posicio[0] >= 0 && posicio[0] < maxLengthVertical){
                         correcte=true;
                     }else{
                         correcte=false;
                     }
                     break;
                 case 'W':
-                    if(posicio[0]>0){
+                    if(posicio[0] > 0 && posicio[0] <= maxLengthVertical){
                         correcte=true;
                     }else{
                         correcte=false;
                     }
                     break;
                 case 'D':
-                    if(maxLengthHoritzontal>0){
+                    if(posicio[1] >= 0 && posicio[1] < maxLengthHoritzontal){
                         correcte=true;
                     }else{
                         correcte=false;
                     }
                     break;
                 case 'A':
-                    if(posicio[1]>0){
+                    if(posicio[1] > 0 && posicio[1] <= maxLengthHoritzontal){
                         correcte=true;
                     }else{
                         correcte=false;
@@ -375,10 +368,7 @@ public class Tabler{
             }
             return error;
         }
-	public void guanyoBatalla(){
-                getPersonatge().guanyoBatalla();
-                tauler[this.getPersonatge().getPosicio()[0]][this.getPersonatge().getPosicio()[1]] = TFicha.NADA.ordinal();
-        }
+
         
         public void canviarPersonatge(){
             Personatge personatgeC = null;
@@ -447,20 +437,21 @@ public class Tabler{
         
         public int sortida(){
            int guanyar=-1;
+		   final int MONEDES_FINAL = 10; //Monedes amb les que pots acabar el joc
            if(tauler[getPersonatge().getPosicio()[0]][getPersonatge().getPosicio()[1]] == TFicha.SALIDA.ordinal()){
                System.out.println("Estas a la sortida.");
-               if(getPersonatge().getMonedes()>=5 && getPersonatge().isClau()==true){
+               if(getPersonatge().getMonedes()>=MONEDES_FINAL && getPersonatge().isClau()==true){
                    System.out.println("Has guanyat!");
                    guanyar = 1;
                }else{
-                   if(getPersonatge().getMonedes()<5 && getPersonatge().isClau()==false){
+                   if(getPersonatge().getMonedes()<MONEDES_FINAL && getPersonatge().isClau()==false){
                        System.out.println("No pots acabar el joc encara. Et falten monedes");
-                   }else if(getPersonatge().getMonedes()<5){
+                   }else if(getPersonatge().getMonedes()<MONEDES_FINAL){
                        System.out.println("No pots acabar el joc encara. Et falten monedes");
                    }else if(getPersonatge().isClau()==false){
 					   System.out.println("No pots acabar el joc encara. Has de trovar la clau");
 				   }
-                   System.out.println("Tornes a l'inici.");
+                   System.out.println("Tornes a l'inici. Torna-ho a intentar quan puguis pagar el preu!");
                    guanyar = 0;
                    getPersonatge().getPosicio()[0]=0;
                    getPersonatge().getPosicio()[1]=0;

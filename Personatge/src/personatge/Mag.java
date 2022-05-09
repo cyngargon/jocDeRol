@@ -6,10 +6,6 @@ public class Mag extends Personatge{
         
     }
     
-    @Override
-    public String missatgePosicio() {
-            return "Et pots moure d'1 en 1 | de 2 en 2 | de 3 en 3";
-    }
 
     @Override
     public char Canvi() {
@@ -26,25 +22,29 @@ public class Mag extends Personatge{
     
     @Override
     public int batalla() {
-        int enemic = RandomizEnemic(), resultatBatalla=-1;
+		int resultat = -1;
+        int enemic = RandomizEnemic();
+		do{
         switch (enemic) {
             case 2:
                 //Perdo
                 System.out.println("L'enemic és un Sacerdot! Perds la batalla");
-                resultatBatalla=0;
+				PerdoBatalla();
+				resultat = 1;
                 break;
             case 1:
                 //Guanyo
                 System.out.println("L'enemic és un Guerrer! Guanyes la batalla");
-                resultatBatalla=1;
+				GuanyoBatalla();
+				resultat = 2;
                 break;
-            default:
-                //Empat
-                System.out.println("Has empatat");
-                batalla();
-                break;
-        }
-            return resultatBatalla;
+			case 3:
+				System.out.println("emp");
+				enemic = RandomizEnemic();
+				break;
+			}
+		}while(resultat == -1);
+		return resultat;
     }
     
     public int seguirMovente(int i, char [] direccio){

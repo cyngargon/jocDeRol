@@ -5,10 +5,7 @@ public class Guerrer extends Personatge {
     public Guerrer(){
         
     }
-    @Override
-    public String missatgePosicio() {
-            return "Et pots moure d'1 en 1";
-    }
+
     
     @Override
     public char Canvi() {
@@ -25,21 +22,29 @@ public class Guerrer extends Personatge {
 
     @Override
     public int batalla() {
+		int resultat = -1;
         int enemic = RandomizEnemic();
-        int resultatBatalla;
-            if(enemic == 3){ //Perdo
-                    System.out.println("L'enemic és un Mag! Perds la batalla");
-                    resultatBatalla=0;
-            }
-            else if (enemic == 2){ //Guanyo
-                    System.out.println("L'enemic és un Sacerdot! Guanyes la batalla");
-                    resultatBatalla = 1;
-            }
-            else{ //Empat
-                resultatBatalla = -1;
-                    batalla();
-            }
-            return resultatBatalla;
+		do{
+        switch (enemic) {
+            case 3:
+                //Perdo
+                System.out.println("L'enemic és un Mag! Perds la batalla");
+				PerdoBatalla();
+				resultat = 1;
+                break;
+            case 2:
+                //Guanyo
+                System.out.println("L'enemic és un Sacerdot! Guanyes la batalla");
+				GuanyoBatalla();
+				resultat = 2;
+                break;
+			case 1:
+				System.out.println("emp");
+				enemic = RandomizEnemic();
+				break;
+			}
+		}while(resultat == -1);
+		return resultat;
     }
 
     

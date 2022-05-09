@@ -56,7 +56,6 @@ public abstract class Personatge{
         
     //Methods
         public abstract char Canvi();
-	public abstract String missatgePosicio();
         public abstract int batalla();
         public void moure(char direccio, boolean correcte) {
 			int [] novaposicio = new int[2];
@@ -92,7 +91,7 @@ public abstract class Personatge{
             }
         }
         public void mostrarDireccio(){
-            System.out.println(missatgePosicio());
+			System.out.println("Et pots moure:");
             System.out.println("W -> Amunt"
                   + "\nS -> Avall"
                   + "\nD -> Dreta"
@@ -165,7 +164,7 @@ public abstract class Personatge{
                         this.monedes--;
                 }
         }	
-        public void guanyoBatalla(){
+        public void GuanyoBatalla(){
             monedes++;
         }
         public int generarPersonatge() {
@@ -173,10 +172,6 @@ public abstract class Personatge{
 		personatge = (int)(Math.random()*(3) + 1);
 		return personatge;
         }
-        public void passarDades(int vides, int monedes, boolean clau){
-            this.setVides(vides);
-            this.setMonedes(monedes);
-            this.setClau(clau);
-        }
+
         
 }
