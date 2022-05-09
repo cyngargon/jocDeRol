@@ -276,13 +276,7 @@ public class Tabler{
                     exit = 0;
                     break;
                 case 'M':
-                    if(personatge instanceof Guerrer){
-                        missatgeMoure(1);
-                    }else if(personatge instanceof Sacerdot){
-                        missatgeMoure(2);
-                    }else if(personatge instanceof Mag){
-                        missatgeMoure(3);
-                    }
+                    missatgeMoure(1);
                     exit=0;
                     break;
                 case 'C': 
@@ -311,8 +305,8 @@ public class Tabler{
             //COLUMNAS A y D
             //tauler[0].length y posicio[0] --> filas 
             //tauler.length y posicio [1] --> columnas
-            int maxLengthVertical = tauler[0].length - posicio[0];
-            int maxLengthHoritzontal = tauler.length - posicio[1];
+            int maxLengthVertical = (tauler.length - 1) - posicio[0];
+            int maxLengthHoritzontal = (tauler[0].length - 1) - posicio[1];
             boolean correcte = true;
             switch(direccio){
                 case 'S':
@@ -358,7 +352,6 @@ public class Tabler{
            int guanyar = sortida();
            if(guanyar==-1||guanyar==0){
             do{
-                this.getPersonatge().missatgePosicio();
                 this.getPersonatge().mostrarDireccio();
                 System.out.print("Selecciona: ");
                 direccio[i] = Character.toUpperCase(Teclat.llegirChar());
