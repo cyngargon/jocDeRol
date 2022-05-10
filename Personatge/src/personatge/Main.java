@@ -24,7 +24,7 @@ public class Main {
             System.out.println("");
             tabler.generarTauler();
             do{
-                tabler.mostrarTauler(); //tabler.mostrarTaulerDev(); per veure mapa desbloquejat
+                tabler.mostrarTaulerDev(); //tabler.mostrarTaulerDev(); per veure mapa desbloquejat
 				//posar k al menu tembé mostra el mapa
                 System.out.println("");
                 tabler.mostrarDatos();

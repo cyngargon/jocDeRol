@@ -18,10 +18,11 @@ public abstract class Personatge{
 		this.posicio=new int [] {0,0};
 	}
 	public Personatge(int vides, int monedes, boolean clau, int [] posicio) {
-		this();
+		
 		this.vides = vides;
 		this.monedes = monedes;
 		this.clau = clau;
+		this.posicio=posicio;
 	}
         
     //	Getter and setter

@@ -48,7 +48,7 @@ public class Mag extends Personatge{
     public char canvi() {
         char resposta;
         System.out.println("El teu personatge és un Mag. "
-                + "Pots canviar a:\n G.Guerrer\n M.Sacerdot"
+                + "Pots canviar a:\n G.Guerrer\n S.Sacerdot"
                 + "\nCost per canviar de personatge: 1 moneda");
         
         System.out.print("Selecciona: ");
