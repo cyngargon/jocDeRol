@@ -51,7 +51,10 @@ public class Main {
             /********FITXERS*********/
             grabarArchivo(d1);
             ArrayList<Dato> dades = leerArchivo();
-            mostrar(dades);
+            int resp = d1.demanarDades();
+            if (resp==1) {
+                mostrar(dades);
+            }
 	}    
 
 	public static void grabarArchivo(Dato d1) {

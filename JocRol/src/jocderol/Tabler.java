@@ -150,7 +150,7 @@ public class Tabler{
 				if (i == posicioPersonatge[0] && j == posicioPersonatge[1]) {
 					System.out.print("[x]");
 				} else if (i == tauler.length - 1 && j == tauler[0].length - 1) {
-					System.out.print("[SORTIDA]");
+					System.out.print("[S]");
 				} else if(tauler[i][j] == 2){
 					System.out.print("[E]");
 				} else if(tauler[i][j] == 3){
