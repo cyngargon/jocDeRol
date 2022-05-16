@@ -105,7 +105,7 @@ public class Main {
 	{
 		for(Dato d: dades) //
 		{
-			System.out.println("NOM: " + d.getNom() + "\tPUNTUACIO: " + d.getPuntuacio() + "\tTEMPS DE JOC: " + d.getTemps());
+			System.out.println("NOM: " + d.getNom() + "\tPUNTUACIO: " + d.getPuntuacio() + "\tTEMPS DE JOC: " + d.getTemps() + "''");
 		}
 	}
 }

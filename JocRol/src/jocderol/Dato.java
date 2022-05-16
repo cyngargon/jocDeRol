@@ -68,15 +68,17 @@ public class Dato {
 	}
 	
 	public int tempsActual(){
-		int hora, minut;
+		int hora, minut, segons;
 
 		String timeStampHora = new SimpleDateFormat("HH").format(new java.util.Date());
 		String timeStampMinut = new SimpleDateFormat("mm").format(new java.util.Date());
+		String timeStampSegons = new SimpleDateFormat("ss").format(new java.util.Date());
 
 		hora = Integer.parseInt(timeStampHora);
 		minut = Integer.parseInt(timeStampMinut);
+		segons = Integer.parseInt(timeStampSegons);
 
-		temps = 60 * hora + minut;
+		temps = 3600 * hora + 60 * minut + segons ;
 		return temps;
 	}
 }
