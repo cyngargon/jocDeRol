@@ -2,6 +2,8 @@ package jocderol;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
 /**
  * Contingut Programa
@@ -28,7 +30,8 @@ public class Main {
             tabler.dimensioTauler();
             System.out.println("");
             tabler.generarTauler();
-			tempsInici = d1.tempsActual();
+            //Se'ns guarda Temps Inicial Sistema
+            tempsInici = d1.tempsActual();
 			
             do{
                 tabler.mostrarTauler(); //tabler.mostrarTaulerDev(); per veure mapa desbloquejat
@@ -40,12 +43,15 @@ public class Main {
 				guanyar = tabler.sortida();
                 System.out.println("\n\n\n");
             }while(exit == 0 && guanyar != 1);
-			tempsFinal = d1.tempsActual();
-			d1.setPuntuacio(100);
-			d1.setTemps(tempsFinal-tempsInici);
-			grabarArchivo(d1);
-			ArrayList<Dato> dades = leerArchivo();
-			mostrar(dades);
+            //Se'ns guarda temps final Sistema
+            tempsFinal = d1.tempsActual();
+            // Modifiquem Temps
+            d1.setTemps(tempsFinal-tempsInici);
+            d1.setPuntuacio(100);
+            /********FITXERS*********/
+            grabarArchivo(d1);
+            ArrayList<Dato> dades = leerArchivo();
+            mostrar(dades);
 	}    
 
 	public static void grabarArchivo(Dato d1) {
@@ -103,10 +109,14 @@ public class Main {
 	}
 	public static void mostrar(ArrayList<Dato> dades)
 	{
-		for(Dato d: dades) //
-		{
-			System.out.println("NOM: " + d.getNom() + "\tPUNTUACIO: " + d.getPuntuacio() + "\tTEMPS DE JOC: " + d.getTemps() + "''");
-		}
+            
+            Collections.sort(dades, Comparator.comparing(Dato::getNom));
+            int i = 1;
+            for(Dato d: dades) //
+            {
+                    System.out.print(i++ + ".- ");
+                    System.out.println("NOM: " + d.getNom() + "\tPUNTUACIO: " + d.getPuntuacio() + "\tTEMPS DE JOC: " + d.getTemps() + "''");
+            }
 	}
 }
 

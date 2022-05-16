@@ -64,7 +64,7 @@ public class Dato {
 		System.out.println("\t||Intodueix el teu nom||\n(Nomes s'agafara els tres primers caracters!)");
 		System.out.print("- ");
 		String nomUser = Teclat.llegirString();
-		this.nom = nomUser;
+		this.nom = nomUser.toUpperCase();
 	}
 	
 	public int tempsActual(){
