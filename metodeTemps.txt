@@ -1,0 +1,13 @@
+public int Tempsactual(){
+	int hora, minut, temps;
+	
+	String timeStampHora = new SimpleDateFormat("HH").format(new java.util.Date());
+	String timeStampMinut = new SimpleDateFormat("mm").format(new java.util.Date());
+	
+	hora = Integer.parseInt(timeStampHora);
+	minut = Integer.parseInt(timeStampMinut);
+	
+	temps = 60 * hora + minut;
+	
+	return temps;
+}
