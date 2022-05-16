@@ -148,15 +148,15 @@ public class Tabler{
 		for (int i = 0; i < tauler.length; i++) {
 			for (int j = 0; j < tauler[0].length; j++) {
 				if (i == posicioPersonatge[0] && j == posicioPersonatge[1]) {
-					System.out.print("[x]");
+					System.out.print("[" + AZUL + "x" + RESET + "]");
 				} else if (i == tauler.length - 1 && j == tauler[0].length - 1) {
-					System.out.print("[S]");
+					System.out.print("[" + AZUL + "S" + RESET + "]");
 				} else if(tauler[i][j] == 2){
-					System.out.print("[E]");
+					System.out.print("[" + ROJO + "E" + RESET + "]");
 				} else if(tauler[i][j] == 3){
-					System.out.print("[M]");
+					System.out.print("[" + AMARILLO + "M" + RESET + "]");
 				} else if(tauler[i][j] == 4){
-					System.out.print("[C]");
+					System.out.print("[" + AZUL + "C" + RESET + "]");
 				} else{
 					System.out.print("[ ]");
 				}
