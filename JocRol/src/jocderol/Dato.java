@@ -61,7 +61,7 @@ public class Dato {
     }
 
     public void intoduccioNom() {
-            System.out.println("\t||Intodueix el teu nom||\n(3 caracters)");
+            System.out.println("||Intodueix el teu nom||\n(3 caracters)");
             System.out.print("- ");
             String nomUser = Teclat.llegirString();
             this.nom = nomUser.toUpperCase();

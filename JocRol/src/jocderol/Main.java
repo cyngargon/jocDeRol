@@ -15,7 +15,6 @@ public class Main {
         int exit, guanyar, tempsInici, tempsFinal;
         Dato d1 = new Dato();
         System.out.println("JOC DE ROL 1.0\n");
-        d1.intoduccioNom();
         System.out.println("Objectiu del joc: Arriba a SORTIDA (S) amb la clau i 10 monedes.");
         System.out.println("Mecàniques:\n"
             + "- Hi ha una clau amagada al mapa, troba-la!!\n" 
@@ -43,6 +42,8 @@ public class Main {
 			guanyar = tabler.sortida();
             System.out.println("\n\n\n");
         }while(exit == 0 && guanyar != 1);
+		
+		d1.intoduccioNom();
 		//Calcul Puntuacio
 		int puntuacioFinal = d1.calculPuntuacio(tabler, guanyar);
 		// Modifiquem Puntuacio
