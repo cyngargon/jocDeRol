@@ -7,6 +7,7 @@ public abstract class Personatge{
     //	Attributes
 	private int vides;
 	private int monedes;
+	private int totalGuanyades;
 	private boolean clau;
 	private int [] posicio;
         
@@ -14,13 +15,15 @@ public abstract class Personatge{
 	public Personatge(){
 		this.vides = 3;
 		this.monedes = 5;
+		this.totalGuanyades = 0;
 		this.clau = false;
 		this.posicio=new int [] {0,0};
 	}
-	public Personatge(int vides, int monedes, boolean clau, int [] posicio) {
+	public Personatge(int vides, int monedes, int totalGuanyades, boolean clau, int [] posicio) {
 		this();
 		this.vides = vides;
 		this.monedes = monedes;
+		this.totalGuanyades = totalGuanyades;
 		this.clau = clau;
 	}
         
@@ -40,6 +43,15 @@ public abstract class Personatge{
         public void setMonedes(int monedes) {
             this.monedes = monedes;
         }
+
+		public int getTotalGuanyades() {
+			return totalGuanyades;
+		}
+
+		public void setTotalGuanyades(int totalGuanyades) {
+			this.totalGuanyades = totalGuanyades;
+		}
+		
         
         public boolean isClau() {
             return clau;
@@ -188,6 +200,7 @@ public abstract class Personatge{
 	 */
 	public void GuanyoBatalla(){
 		monedes++;
+		totalGuanyades++;
 	}
 	/**
 	 * Mètode Perdre Batalla

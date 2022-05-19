@@ -40,9 +40,13 @@ public class Main {
             tabler.mostrarDatos();
             System.out.println("");
             exit = tabler.menu();
-                            guanyar = tabler.sortida();
+			guanyar = tabler.sortida();
             System.out.println("\n\n\n");
         }while(exit == 0 && guanyar != 1);
+		//Calcul Puntuacio
+		int puntuacioFinal = d1.calculPuntuacio(tabler, guanyar);
+		// Modifiquem Puntuacio
+		d1.setPuntuacio(puntuacioFinal);
         //Se'ns guarda temps final Sistema
         tempsFinal = d1.tempsActual();
         // Modifiquem Temps
@@ -112,7 +116,7 @@ public class Main {
 	public static void mostrar(ArrayList<Dato> dades)
 	{
             
-            Collections.sort(dades, Comparator.comparing(Dato::getNom));
+            Collections.sort(dades, Comparator.comparing(Dato::getPuntuacio).reversed());
             int i = 1;
             for(Dato d: dades) //
             {

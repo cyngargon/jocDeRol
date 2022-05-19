@@ -1,11 +1,10 @@
 package jocderol;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class Dato {
     public final static int NOM_SIZE = 3;
-
+	private final int porcGuanya = 1000, porcGuanyat = 50, porcVides = 20, porcMonedes = 5;
 
     private String nom;
     private int puntuacio;
@@ -66,7 +65,22 @@ public class Dato {
             System.out.print("- ");
             String nomUser = Teclat.llegirString();
             this.nom = nomUser.toUpperCase();
+			System.out.println();
     }
+	
+	public int calculPuntuacio(Tabler tabler, int guanyar){
+		//BATALLES GUANYADES
+		puntuacio += porcGuanyat * tabler.getPersonatge().getTotalGuanyades();
+		//MONEDES OBTINGUDES
+		puntuacio += porcVides * tabler.getPersonatge().getVides();
+		//MONEDES OBTINGUDES
+		puntuacio += porcMonedes * tabler.getPersonatge().getMonedes();
+		//GUANYA???
+		if (guanyar == 1) {
+			puntuacio += porcGuanya; 
+		}
+		return puntuacio;
+	}
 
     public int tempsActual(){
             int hora, minut, segons;
