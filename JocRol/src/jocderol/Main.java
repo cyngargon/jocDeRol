@@ -58,7 +58,7 @@ public class Main {
         d1.setTemps(tempsFinal-tempsInici);
 		
         ///////////////////////FITXERS//////////////////////////
-		
+		System.out.println("\nFITXERS");
         d1.grabarArchivo(d1);
         ArrayList<Dato> dades = d1.leerArchivo();
         int resp = d1.demanarDades();
@@ -67,18 +67,19 @@ public class Main {
         }
         
         ////////////////////BASES DE DADES///////////////////////
-        
+        System.out.println("\n\nBASE DE DADES");
         try{
+			//Creem objecte de base de dades
             BaseDades bd = new BaseDades();
-            
             //Mètodes
 			bd.insertarRegistre(d1.getNom(), d1.getPuntuacio(), d1.getTemps());
-			
-            
+			bd.mostrarRegistresOrdenats();
+            //Tancar base de dades
             bd.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			System.out.println("S'ha trobat una excepcio...");
+			System.out.println("Aquesta és la següent: " + ex.getMessage());
+		}
     }    
 
 	

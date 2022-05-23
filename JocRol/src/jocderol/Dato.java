@@ -104,7 +104,7 @@ public class Dato {
 
     public int demanarDades() {
         int resp;
-        System.out.print("VOLS VEURE EL MARCADOR? (0 -> NO) (1-> SÍ) ->");
+        System.out.print("VOLS VEURE EL MARCADOR? (0 -> NO) (1-> SÍ) -> ");
         resp = Teclat.llegirInt();
         if (resp != 1) {
             System.out.println("\n\n\n\t\t\tPROGRAMM END");
