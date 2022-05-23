@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS jocrol;
+CREATE DATABASE jocrol;
+USE jocrol;
+
