@@ -211,6 +211,7 @@ public abstract class Personatge{
 					System.out.println("Perds una vida");
 					System.out.println("Vides actuals: " + getVides());
 					this.vides--;
+                                        this.monedes = 5;
 			}
 			else{
 					System.out.println("Monedes actuals: " + getMonedes());
