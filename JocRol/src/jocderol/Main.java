@@ -1,10 +1,13 @@
 package jocderol;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Contingut Programa
  * @author MarcSerra, CynthiaGarcia, PolCrespo 
@@ -58,6 +61,18 @@ public class Main {
         int resp = d1.demanarDades();
         if (resp==1) {
             mostrar(dades);
+        }
+        
+        ////////////////////BASES DE DADES///////////////////////
+        
+        try{
+            BaseDades bd = new BaseDades();
+            
+            //Mètodes
+            
+            bd.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
 

@@ -1,0 +1,23 @@
+package jocderol;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+
+public class BaseDades {
+    private Connection conn;
+    
+    public BaseDades() throws SQLException{
+        String url = "jdbc:mysql://localhost/jocrol";
+        String usuari = "root";
+        String contrasenya = "mysql";
+        conn = DriverManager.getConnection(url, usuari, contrasenya);
+    }
+    
+    public void close() throws SQLException{
+        conn.close();
+    }
+    
+    
+}
