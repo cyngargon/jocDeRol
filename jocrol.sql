@@ -7,7 +7,7 @@ id_partida INT AUTO_INCREMENT,
 nom VARCHAR(3), 
 puntuacio INT,
 tempsJugat INT,
+dataJoc datetime,
 PRIMARY KEY (id_partida)
 );
 
-SELECT * FROM DADES_PARTIDA;
